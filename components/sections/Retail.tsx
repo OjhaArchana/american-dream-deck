@@ -1,71 +1,132 @@
 "use client";
 import { motion } from "framer-motion";
+import Link from "next/link";
+
+const brands = [
+  { name: "APPLE", category: "Technology" },
+  { name: "NIKE", category: "Sportswear" },
+  { name: "ZARA", category: "Fast Fashion" },
+  { name: "UNIQLO", category: "Lifestyle" },
+  { name: "LEGO", category: "Experiential" },
+  { name: "ADIDAS", category: "Sportswear" },
+  { name: "H&M", category: "Fashion" },
+  { name: "SEPHORA", category: "Beauty" },
+];
+
+const leasingPaths = [
+  {
+    type: "Flagship Stores",
+    sqft: "2,000 – 10,000 sq ft",
+    desc: "Anchor positions in our highest-footfall corridors. Join Apple, Nike, and Zara in spaces designed for brand storytelling at scale.",
+    stat: "180+ flagship locations",
+    href: "/leasing/flagship",
+  },
+  {
+    type: "Mid-Tier Retail",
+    sqft: "500 – 3,000 sq ft",
+    desc: "Strong conversion zones with consistent daily footfall. Ideal for established brands looking for regional presence.",
+    stat: "200+ mid-tier tenants",
+    href: "/leasing/midtier",
+  },
+  {
+    type: "Pop-Up Spaces",
+    sqft: "100 – 500 sq ft",
+    desc: "Flexible short-term positions for launches, campaigns, and seasonal activations. Move fast, test new markets.",
+    stat: "50+ pop-up positions available",
+    href: "/leasing/popup",
+  },
+];
 
 export default function Retail() {
-  const brands = [
-    "ZARA",
-    "UNIQLO",
-    "LEGO",
-    "NIKE",
-    "ADIDAS",
-    "APPLE",
-    "H&M",
-    "SEPHORA",
-  ];
-
   return (
-    <motion.section
-      id="retail"
-      className="min-h-screen bg-white text-black flex flex-col justify-center px-6 py-16"
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      viewport={{ once: true }}
-    >
-      {/* Title */}
-      <h2 className="text-3xl md:text-5xl font-semibold mb-10 text-center">
-        Retail Experience
-      </h2>
+    <section id="retail" className="bg-zinc-950 text-white py-32 px-6 md:px-20">
 
-      {/* Horizontal Scroll */}
-      <div className="overflow-x-auto whitespace-nowrap scrollbar-hide">
-        <div className="flex gap-10 px-4">
-          {brands.map((brand, i) => (
+      {/* Section header */}
+      <motion.p
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        className="text-white/40 text-xs tracking-[0.4em] uppercase mb-6"
+      >
+        Retail
+      </motion.p>
+
+      <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-20 gap-6">
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-4xl md:text-6xl font-light max-w-xl leading-tight"
+        >
+          450+ Brands.
+          <br />
+          One Destination.
+        </motion.h2>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2, duration: 0.8 }}
+          className="text-white/40 text-sm max-w-sm leading-relaxed"
+        >
+          From global flagship stores to emerging brand pop-ups — American Dream
+          offers the most diverse and high-performing retail environment in North America.
+        </motion.p>
+      </div>
+
+      {/* Brand ticker */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+        className="overflow-hidden mb-20"
+      >
+        <div className="flex gap-0 border-t border-b border-white/10">
+          {[...brands, ...brands].map((brand, i) => (
             <div
               key={i}
-              className="min-w-[150px] h-[100px] bg-gray-100 flex items-center justify-center rounded-xl text-lg font-medium hover:scale-105 transition"
+              className="flex-shrink-0 px-10 py-6 border-r border-white/10 group hover:bg-white/5 transition-colors duration-300 cursor-default"
             >
-              {brand}
+              <p className="text-white text-sm tracking-[0.3em]">{brand.name}</p>
+              <p className="text-white/30 text-xs mt-1">{brand.category}</p>
             </div>
           ))}
         </div>
+      </motion.div>
+
+      {/* Leasing path cards */}
+      <div className="grid md:grid-cols-3 gap-px bg-white/10">
+        {leasingPaths.map((path, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: i * 0.15, duration: 0.7 }}
+            className="bg-zinc-950 p-10 flex flex-col justify-between group hover:bg-white/5 transition-colors duration-300"
+          >
+            <div>
+              <p className="text-white/40 text-xs tracking-widest uppercase mb-4">
+                {path.sqft}
+              </p>
+              <h3 className="text-xl font-light text-white mb-4">{path.type}</h3>
+              <p className="text-white/50 text-sm leading-relaxed">{path.desc}</p>
+            </div>
+            <div className="mt-10 pt-6 border-t border-white/10 flex items-center justify-between">
+              <span className="text-white/30 text-xs">{path.stat}</span>
+              <Link
+                href={path.href}
+                className="text-white text-xs tracking-widest uppercase hover:underline underline-offset-4 transition"
+              >
+                Explore →
+              </Link>
+            </div>
+          </motion.div>
+        ))}
       </div>
-
-      {/* Categories */}
-      <div className="grid md:grid-cols-3 gap-8 mt-16 max-w-5xl mx-auto text-center">
-        
-        <div className="p-6 border rounded-xl">
-          <h3 className="text-xl font-semibold">Flagship Stores</h3>
-          <p className="text-gray-500 mt-2">
-            Premium brand presence in high-traffic zones.
-          </p>
-        </div>
-
-        <div className="p-6 border rounded-xl">
-          <h3 className="text-xl font-semibold">Mid-Tier Retail</h3>
-          <p className="text-gray-500 mt-2">
-            Consistent footfall and strong conversion rates.
-          </p>
-        </div>
-
-        <div className="p-6 border rounded-xl">
-          <h3 className="text-xl font-semibold">Pop-Up Spaces</h3>
-          <p className="text-gray-500 mt-2">
-            Flexible retail for emerging and seasonal brands.
-          </p>
-        </div>
-
-      </div>
-    </motion.section>
+    </section>
   );
 }
