@@ -6,7 +6,7 @@ const categories = [
     name: "Fine Dining",
     desc: "White-tablecloth experiences from acclaimed chefs.",
     count: "8 restaurants",
-    image: "/images/fine-dining.jpg",
+    image: "/images/fine-dine.jpg",
   },
   {
     name: "Fast Casual",
