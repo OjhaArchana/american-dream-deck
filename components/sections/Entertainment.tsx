@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 
 const attractions = [
   {
@@ -7,14 +8,14 @@ const attractions = [
     stat: "35 rides & attractions",
     desc: "Western Hemisphere's largest indoor theme park. 8 acres. Year-round programming for families and brand activations.",
     tag: "Theme Park",
-    image: "/images/nick-universe.jpg",
+    image: "/images/theme-park.jpg",
   },
   {
     title: "Big SNOW",
     stat: "180,000 sq ft",
     desc: "North America's only indoor real-snow ski slope. Open 365 days a year, regardless of weather.",
     tag: "Indoor Ski",
-    image: "/images/big-snow.jpg",
+    image: "/images/indoor-ski.jpg",
   },
   {
     title: "DreamWorks Water Park",
@@ -33,16 +34,17 @@ const attractions = [
 ];
 
 export default function Entertainment() {
+  useEffect(() => {
+    attractions.forEach((a) => {
+      const img = new Image();
+      img.src = a.image;
+    });
+  }, []);
+
   return (
     <section id="entertainment" className="bg-black text-white py-32 px-6 md:px-20">
-
       {/* Header */}
-      <motion.p
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        className="text-white/40 text-xs tracking-[0.4em] uppercase mb-6"
-      >
+      <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="text-white/40 text-xs tracking-[0.4em] uppercase mb-6">
         Entertainment
       </motion.p>
 
@@ -66,8 +68,7 @@ export default function Entertainment() {
           transition={{ delay: 0.2 }}
           className="text-white/40 text-sm max-w-xs leading-relaxed"
         >
-          55% of American Dream is dedicated to entertainment — the highest
-          ratio of any retail property in North America.
+          55% of American Dream is dedicated to entertainment — the highest ratio of any retail property in North America.
         </motion.p>
       </div>
 
@@ -83,38 +84,32 @@ export default function Entertainment() {
             className="bg-black group cursor-default"
           >
             {/* Image area */}
-            {/*
-              Replace the placeholder below with:
-              <div className="aspect-video overflow-hidden relative">
-                <img
-                  src={item.image}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  alt={item.title}
-                />
-                <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors duration-500" />
-              </div>
+            <div className="aspect-video relative overflow-hidden">
+              {/* Image */}
+              <img
+                src={item.image}
+                alt={item.title}
+                loading="lazy"
+                decoding="async"
+                className="w-full h-full object-cover 
+               transition-transform duration-[1400ms] ease-out 
+               group-hover:scale-105 
+               will-change-transform"
+              />
 
-              Midjourney prompts:
-              Nickelodeon: "indoor theme park roller coaster, colorful neon lights, cinematic photography, wide angle"
-              Big Snow: "indoor ski slope artificial snow, skiers, dramatic overhead lighting, architecture photography"
-              Water Park: "indoor water park slides, tropical lighting, wide establishing shot, editorial"
-              Ice Rink: "NHL ice rink inside luxury mall, overhead lighting, figure skating, architectural photography"
-            */}
-            <div className="aspect-video bg-zinc-900 relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-zinc-700 to-zinc-950 group-hover:opacity-80 transition-opacity duration-500" />
+              {/* Overlay */}
+              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all duration-700" />
+
+              {/* Tag */}
               <div className="absolute top-6 left-6">
-                <span className="text-white/40 text-xs tracking-widest uppercase border border-white/20 px-3 py-1">
-                  {item.tag}
-                </span>
+                <span className="text-white/70 text-xs tracking-widest uppercase border border-white/30 px-3 py-1 backdrop-blur-sm">{item.tag}</span>
               </div>
             </div>
 
             {/* Content */}
             <div className="p-10 border-t border-white/10">
               <div className="flex items-start justify-between mb-4">
-                <h3 className="text-xl md:text-2xl font-light text-white">
-                  {item.title}
-                </h3>
+                <h3 className="text-xl md:text-2xl font-light text-white">{item.title}</h3>
                 <span className="text-white/30 text-sm">{item.stat}</span>
               </div>
               <p className="text-white/50 text-sm leading-relaxed">{item.desc}</p>
