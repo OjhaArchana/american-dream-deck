@@ -25,7 +25,7 @@ const brands = [
     name: "Moncler",
     note: "Luxury Outerwear",
     image: "/images/moncler.jpg",
-    images: "/images/luxury.jpg",
+   // images: "/images/luxury.jpg",
   },
 ];
 
@@ -70,7 +70,8 @@ export default function Luxury() {
                   }}
                   className="absolute inset-0"
                   style={{
-                    backgroundImage: `url(${brand.images || brand.image})`,
+                    backgroundImage: `url(${brand.image})`,
+                    //|| brand.images
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                   }}
