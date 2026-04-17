@@ -66,7 +66,7 @@ export default function Luxury() {
                   exit={{ x: "-20%", opacity: 0.8 }}
                   transition={{
                     duration: 1.6,
-                    ease: [0.5, 1.3, 0.4, 1], // smooth luxury easing
+                    ease: [0.22, 1, 0.36, 1], // smooth luxury easing
                   }}
                   className="absolute inset-0"
                   style={{
