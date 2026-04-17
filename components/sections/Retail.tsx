@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useState } from "react";
 
 const brands = [
   { name: "APPLE", category: "Technology" },
@@ -38,16 +39,12 @@ const leasingPaths = [
 ];
 
 export default function Retail() {
+  const [isPaused, setIsPaused] = useState(false);
+
   return (
     <section id="retail" className="bg-zinc-950 text-white py-32 px-6 md:px-20">
-
       {/* Section header */}
-      <motion.p
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        className="text-white/40 text-xs tracking-[0.4em] uppercase mb-6"
-      >
+      <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="text-white/40 text-xs tracking-[0.4em] uppercase mb-6">
         Retail
       </motion.p>
 
@@ -71,13 +68,51 @@ export default function Retail() {
           transition={{ delay: 0.2, duration: 0.8 }}
           className="text-white/40 text-sm max-w-sm leading-relaxed"
         >
-          From global flagship stores to emerging brand pop-ups — American Dream
-          offers the most diverse and high-performing retail environment in North America.
+          From global flagship stores to emerging brand pop-ups — American Dream offers the most diverse and high-performing retail environment in North America.
         </motion.p>
       </div>
 
       {/* Brand ticker */}
-      <motion.div
+      <div className="relative overflow-hidden mb-20" onMouseEnter={() => setIsPaused(true)} onMouseLeave={() => setIsPaused(false)}>
+        {/* Gradient fade edges */}
+        <div className="pointer-events-none absolute left-0 top-0 h-full w-24 bg-gradient-to-r from-zinc-950 to-transparent z-10" />
+        <div className="pointer-events-none absolute right-0 top-0 h-full w-24 bg-gradient-to-l from-zinc-950 to-transparent z-10" />
+
+        {/* Moving reel */}
+        <motion.div
+          className="flex"
+          animate={{ x: isPaused ? undefined : ["0%", "-50%"] }}
+          transition={{
+            duration: 40, // slower = more premium
+            ease: "linear",
+            repeat: Infinity,
+          }}
+        >
+          {[...brands, ...brands].map((brand, i) => (
+            <div key={i} className="flex-shrink-0 px-12 py-8 border-r border-white/10 group cursor-pointer flex flex-col items-center justify-center transition-all duration-500">
+              {/* Logo (optional - uncomment when ready) */}
+              {/*
+        <div className="relative w-20 h-10 mb-3">
+          <img
+            src={brand.logo}
+            className="absolute inset-0 w-full h-full object-contain opacity-100 group-hover:opacity-0 transition-opacity duration-500"
+          />
+          <img
+            src={brand.logoColor}
+            className="absolute inset-0 w-full h-full object-contain opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+          />
+        </div>
+        */}
+
+              {/* Text */}
+              <p className="text-white text-xs tracking-[0.3em] group-hover:text-white transition-colors duration-300">{brand.name}</p>
+              <p className="text-white/30 text-[10px] mt-1 group-hover:text-white/60 transition-colors duration-300">{brand.category}</p>
+            </div>
+          ))}
+        </motion.div>
+      </div>
+      
+      {/* <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
@@ -95,7 +130,7 @@ export default function Retail() {
             </div>
           ))}
         </div>
-      </motion.div>
+      </motion.div> */}
 
       {/* Leasing path cards */}
       <div className="grid md:grid-cols-3 gap-px bg-white/10">
@@ -109,18 +144,13 @@ export default function Retail() {
             className="bg-zinc-950 p-10 flex flex-col justify-between group hover:bg-white/5 transition-colors duration-300"
           >
             <div>
-              <p className="text-white/40 text-xs tracking-widest uppercase mb-4">
-                {path.sqft}
-              </p>
+              <p className="text-white/40 text-xs tracking-widest uppercase mb-4">{path.sqft}</p>
               <h3 className="text-xl font-light text-white mb-4">{path.type}</h3>
               <p className="text-white/50 text-sm leading-relaxed">{path.desc}</p>
             </div>
             <div className="mt-10 pt-6 border-t border-white/10 flex items-center justify-between">
               <span className="text-white/30 text-xs">{path.stat}</span>
-              <Link
-                href={path.href}
-                className="text-white text-xs tracking-widest uppercase hover:underline underline-offset-4 transition"
-              >
+              <Link href={path.href} className="text-white text-xs tracking-widest uppercase hover:underline underline-offset-4 transition">
                 Explore →
               </Link>
             </div>
