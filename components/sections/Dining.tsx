@@ -6,25 +6,25 @@ const categories = [
     name: "Fine Dining",
     desc: "White-tablecloth experiences from acclaimed chefs.",
     count: "8 restaurants",
-    image: "/images/dining-fine.jpg",
+    image: "/images/fine-dining.jpg",
   },
   {
     name: "Fast Casual",
     desc: "Premium quick-service for high-velocity footfall zones.",
     count: "40+ concepts",
-    image: "/images/dining-casual.jpg",
+    image: "/images/casual-dining.jpg",
   },
   {
     name: "Desserts & Cafés",
     desc: "Artisan coffee, patisseries, and destination dessert brands.",
     count: "15 concepts",
-    image: "/images/dining-desserts.jpg",
+    image: "/images/cafes-restuarants.jpg",
   },
   {
     name: "International Cuisine",
     desc: "Global flavors curated for a diverse, sophisticated audience.",
     count: "20+ cuisines",
-    image: "/images/dining-intl.jpg",
+    image: "/images/international-cuisine.jpg",
   },
 ];
 
@@ -91,12 +91,22 @@ export default function Dining() {
               Fine Dining: "upscale restaurant interior, ambient candlelight, white tablecloths, editorial food photography"
               Fast Casual: "modern food court, luxury shopping mall interior, natural light, architectural photography"
             */}
-            <div className="aspect-[4/3] bg-zinc-900 relative overflow-hidden">
+            {/* <div className="aspect-[4/3] bg-zinc-900 relative overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-zinc-700 to-zinc-900" />
               <div className="absolute inset-0 flex items-center justify-center">
                 <p className="text-white/10 text-4xl font-light">{i + 1}</p>
               </div>
-            </div>
+            </div> */}
+            <div className="aspect-[4/3] relative overflow-hidden">
+                <img
+                 src={cat.image}
+                 alt={cat.name}
+                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+
+               {/* Dark overlay for premium look */}
+               <div className="absolute inset-0 bg-black/50 group-hover:bg-black/30 transition-all duration-500" />
+               </div>
 
             <div className="p-8">
               <p className="text-white/30 text-xs tracking-widest uppercase mb-3">

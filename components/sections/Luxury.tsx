@@ -31,7 +31,7 @@ export default function Luxury() {
         transition={{ duration: 1 }}
         className="md:w-1/2 relative overflow-hidden min-h-[50vh] md:min-h-screen bg-zinc-900"
         style={{
-          backgroundImage: "url('/images/luxury-hero.jpg')",
+          backgroundImage: "url('/images/luxury.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
