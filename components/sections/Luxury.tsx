@@ -7,19 +7,19 @@ const brands = [
   {
     name: "Hermès",
     note: "Leather Goods & Accessories",
-    image: "/images/hermes.jpg",
-    images: "/images/hermes1.jpg",
+    image: "/images/hermes1.jpg",
+    //images: "/images/hermes1.jpg",
   },
   {
     name: "Tiffany & Co.",
     note: "Fine Jewelry",
-    image: "/images/tiffany.jpg",
-    images: "/images/tiffany1.jpg",
+    image: "/images/tiffany1.jpg",
+    //images: "/images/tiffany1.jpg",
   },
   {
     name: "Dolce & Gabbana",
     note: "Luxury Fashion",
-    image: "/images/dolcegabbana.jpg",
+    image: "/images/dolce-gabbana.jpg",
   },
   {
     name: "Moncler",
