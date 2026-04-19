@@ -7,14 +7,15 @@ import Dining from "@/components/sections/Dining";
 import Entertainment from "@/components/sections/Entertainment";
 import Events from "@/components/sections/Events";
 import Contact from "@/components/sections/Contact";
-import SideNav from "@/components/ui/SideNav";
+//import SideNav from "@/components/ui/SideNav";
 import Loader from "@/components/ui/Loader";
+import DeckNav from "@/components/ui/DeckNav";
 
 export default function Page() {
   return (
     <main className="relative">
       <Loader/>
-      <SideNav/>
+      <DeckNav/>
 
       <Home/>
       <Property/>

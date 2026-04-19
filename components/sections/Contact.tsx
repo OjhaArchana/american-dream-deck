@@ -9,7 +9,7 @@ const paths = [
     desc: "Join 450+ brands in North America's highest-footfall destination. Segmented leasing paths for every category.",
     cta: "Explore Leasing",
     href: "/leasing",
-    stat: "Available Q1 2025",
+    stat: "Now Leasing",
   },
   {
     title: "Become a Sponsor",

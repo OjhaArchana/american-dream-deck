@@ -10,7 +10,7 @@ const sections = [
   { id: "dining", label: "Dining" },
   { id: "entertainment", label: "Entertainment" },
   { id: "events", label: "Events" },
-  { id: "partner", label: "Partner" },
+ // { id: "partner", label: "Partner" },
 ];
 
 export default function DeckNav() {
