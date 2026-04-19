@@ -13,17 +13,17 @@ import Loader from "@/components/ui/Loader";
 export default function Page() {
   return (
     <main className="relative">
-      <Loader />
-      <SideNav />
+      <Loader/>
+      <SideNav/>
 
-      <Home />
-      <Property />
-      <Retail />
-      <Luxury />
-      <Dining />
-      <Entertainment />
-      <Events />
-      <Contact />
+      <Home/>
+      <Property/>
+      <Retail/>
+      <Luxury/>
+      <Dining/>
+      <Entertainment/>
+      <Events/>
+      <Contact/>
     </main>
   );
 }

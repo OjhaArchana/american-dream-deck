@@ -7,13 +7,11 @@ export default function Home() {
 
       {/* Background Video */}
       <video
-        autoPlay
-        muted
-        loop
-        playsInline
+        autoPlay muted loop playsInline
         className="absolute inset-0 w-full h-full object-cover"
+        style={{ filter: "brightness(0.75) contrast(1.05)" }}
       >
-        <source src="/videos/hero.mp4" type="video/mp4" />
+        <source src="/videos/hero.mp4" type="video/mp4"/>
       </video>
 
       {/* Gradient overlay — darker at bottom for text legibility */}
@@ -91,8 +89,8 @@ export default function Home() {
         transition={{ delay: 2.5, duration: 1 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
-        <div className="w-px h-12 bg-white/20 animate-pulse" />
+        <div className="w-px h-12 bg-white/20 animate-pulse"/>
       </motion.div>
     </section>
   );
-}
+} 
