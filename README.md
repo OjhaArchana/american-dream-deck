@@ -105,10 +105,12 @@ Luxury section preloads all brand images before the slideshow starts to eliminat
 ## AI Tools Used
 
 
-**Claude (Anthropic)** - Primary thinking partner throughout, architecture decisions, component structure, iterative design critique against the brief's evaluation criteria, copy refinement, and debugging
-**AI-assisted image research** - Used AI tools to source and identify 
+**- Claude (Anthropic)** - Primary thinking partner throughout, architecture decisions, component structure, iterative design critique against the brief's evaluation criteria, copy refinement, and debugging
+
+**- AI-assisted image research** - Used AI tools to source and identify 
 relevant visual assets for Entertainment and Dining sections selecting imagery that matched the dark cinematic tone of the deck
-**Claude** - Used to evaluate each section against the brief's scoring criteria (Visual Design 30%, Technical 25%, AI Integration 15%, Storytelling 15%, Expandability 10%, Detail 5%) before finalising
+
+**- Claude** - Used to evaluate each section against the brief's scoring criteria (Visual Design 30%, Technical 25%, AI Integration 15%, Storytelling 15%, Expandability 10%, Detail 5%) before finalising
 
 The AI usage was not decorative. Claude compressed what would have been a multi-week build into a focused sprint while maintaining craft at each decision point, functioning as a senior reviewer available at every stage.
 
