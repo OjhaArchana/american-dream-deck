@@ -29,9 +29,9 @@ const paths = [
   },
 ];
 
-export default function Contact() {
-  return (
-    <section id="partner" className="bg-black text-white py-32 px-6 md:px-20">
+export default function Contact({ goTo }: { goTo: (index: number) => void }) {
+    return (
+    <section id="partner" className="bg-black text-white px-6 md:px-13 py-6 min-h-screen flex flex-col justify-center">
 
       {/* Header */}
       <motion.p
@@ -88,12 +88,22 @@ export default function Contact() {
 
             <div className="mt-12 pt-6 border-t border-white/10">
               <p className="text-white/30 text-xs mb-4">{path.stat}</p>
-              <Link
+              {/* <Link
                 href={path.href}
                 className="inline-block border border-white/30 text-white text-xs tracking-widest uppercase px-6 py-3 hover:bg-white hover:text-black transition-all duration-500"
               >
                 {path.cta} →
-              </Link>
+              </Link> */}
+              <button
+  onClick={() => {
+    if (path.title === "Lease a Space") goTo(2); // retail
+    if (path.title === "Become a Sponsor") goTo(7); // partner (stay or open form later)
+    if (path.title === "Book a Venue") goTo(6); // events
+  }}
+  className="inline-block border border-white/30 text-white text-xs tracking-widest uppercase px-6 py-3 hover:bg-white hover:text-black transition-all duration-500"
+>
+  {path.cta} →
+</button>
             </div>
           </motion.div>
         ))}

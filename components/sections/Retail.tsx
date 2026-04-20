@@ -378,14 +378,14 @@ import Link from "next/link";
 import { useState } from "react";
 
 const brands = [
-  { name: "APPLE",  logo: "/images/apple.png",   hasColor: false },
-  { name: "NIKE",   logo: "/images/nike.png",    hasColor: false },
-  { name: "ZARA",   logo: "/images/zara.jpg",    hasColor: true },
-  { name: "UNIQLO", logo: "/images/uniqlo.png",  hasColor: true  },
-  { name: "LEGO",   logo: "/images/lego.png",    hasColor: true  },
-  { name: "ADIDAS", logo: "/images/adidas.png",  hasColor: false },
-  { name: "H&M",    logo: "/images/h&m.png",     hasColor: true  },
-  { name: "SEPHORA",logo: "/images/sephora.png", hasColor: false },
+  { name: "APPLE", logo: "/images/apple.png", hasColor: false },
+  { name: "NIKE", logo: "/images/nike.png", hasColor: false },
+  { name: "ZARA", logo: "/images/zara.jpg", hasColor: true },
+  { name: "UNIQLO", logo: "/images/uniqlo.png", hasColor: true },
+  { name: "LEGO", logo: "/images/lego.png", hasColor: true },
+  { name: "ADIDAS", logo: "/images/adidas.png", hasColor: false },
+  { name: "H&M", logo: "/images/h&m.png", hasColor: true },
+  { name: "SEPHORA", logo: "/images/sephora.png", hasColor: false },
 ];
 
 const leasingPaths = [
@@ -420,22 +420,21 @@ function BrandTile({ brand }: { brand: (typeof brands)[0] }) {
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="flex-shrink-0 w-[160px] px-8 py-8 border-r border-white/10
+      className="flex-shrink-0 w-[150px] px-8 py-4 border-r border-white/10
                  flex flex-col items-center justify-center gap-3 cursor-pointer"
     >
       {/* Fixed-size container so layout never shifts on hover */}
       <div className="relative w-[80px] h-[38px] flex items-center justify-center">
-
         {/* ── Brand name (default, visible when not hovered) ── */}
         <span
           className="absolute inset-0 flex items-center justify-center
                      text-xs tracking-[0.25em] font-medium"
           style={{
-            opacity:    hovered ? 0 : 1,
-            color:      "rgba(255,255,255,0.55)",
+            opacity: hovered ? 0 : 1,
+            color: "rgba(255,255,255,0.55)",
             transition: "opacity 350ms ease",
             whiteSpace: "nowrap",
-            fontSize:   brand.name.length > 6 ? "10px" : "12px",
+            fontSize: brand.name.length > 6 ? "10px" : "12px",
           }}
         >
           {brand.name}
@@ -450,7 +449,7 @@ function BrandTile({ brand }: { brand: (typeof brands)[0] }) {
             draggable={false}
             className="absolute inset-0 w-full h-full object-contain"
             style={{
-              opacity:    hovered ? 1 : 0,
+              opacity: hovered ? 1 : 0,
               transition: "opacity 350ms ease",
             }}
           />
@@ -462,8 +461,8 @@ function BrandTile({ brand }: { brand: (typeof brands)[0] }) {
             draggable={false}
             className="absolute inset-0 w-full h-full object-contain"
             style={{
-              filter:     "brightness(0) invert(1)",
-              opacity:    hovered ? 1 : 0,
+              filter: "brightness(0) invert(1)",
+              opacity: hovered ? 1 : 0,
               transition: "opacity 350ms ease",
             }}
           />
@@ -488,109 +487,135 @@ function BrandTile({ brand }: { brand: (typeof brands)[0] }) {
 // ── Section ──────────────────────────────────────────────────────────────────
 export default function Retail() {
   const [isPaused, setIsPaused] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
 
   return (
-    <section id="retail" className="bg-zinc-950 text-white py-32 px-6 md:px-20">
-
-      {/* Header */}
-      <motion.p
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        className="text-white/40 text-xs tracking-[0.4em] uppercase mb-6"
-      >
-        Retail
-      </motion.p>
-
-      <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-20 gap-6">
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-4xl md:text-6xl font-light max-w-xl leading-tight"
-        >
-          450+ Brands.
-          <br />
-          One Destination.
-        </motion.h2>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2, duration: 0.8 }}
-          className="text-white/40 text-sm max-w-sm leading-relaxed"
-        >
-          From global flagship stores to emerging brand pop-ups — American Dream
-          offers the most diverse and high-performing retail environment in North America.
+    <section id="retail" className="min-h-screen flex items-center bg-zinc-950 text-white px-6 py-20 md:px-20 md:py-24">
+      <div className="w-full max-w-[1700px] mx-auto">
+        {/* Header */}
+        <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="text-white/40 text-xs tracking-[0.4em] uppercase mb-5">
+          Retail
         </motion.p>
-      </div>
 
-      {/* ── Brand ticker ──────────────────────────────────────────────────── */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        className="relative overflow-hidden mb-20 border-t border-b border-white/10"
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
-      >
-        {/* Fade edges */}
-        <div className="pointer-events-none absolute left-0 top-0 h-full w-28
-                        bg-gradient-to-r from-zinc-950 to-transparent z-10" />
-        <div className="pointer-events-none absolute right-0 top-0 h-full w-28
-                        bg-gradient-to-l from-zinc-950 to-transparent z-10" />
-
-        {/* Scrolling reel — doubled for seamless loop */}
-        <motion.div
-          className="flex"
-          animate={isPaused ? {} : { x: ["0%", "-50%"] }}
-          transition={{
-            duration: 35,
-            ease: "linear",
-            repeat: Infinity,
-            repeatType: "loop",
-          }}
-        >
-          {[...brands, ...brands].map((brand, i) => (
-            <BrandTile key={`${brand.name}-${i}`} brand={brand} />
-          ))}
-        </motion.div>
-      </motion.div>
-
-      {/* ── Leasing path cards ────────────────────────────────────────────── */}
-      <div className="grid md:grid-cols-3 gap-px bg-white/10">
-        {leasingPaths.map((path, i) => (
-          <motion.div
-            key={i}
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-8 gap-6">
+          <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: i * 0.15, duration: 0.7 }}
-            className="bg-zinc-950 p-10 flex flex-col justify-between
-                       group hover:bg-white/5 transition-colors duration-300"
+            transition={{ duration: 0.8 }}
+            className="text-4xl md:text-6xl font-light max-w-xl leading-tight"
           >
-            <div>
-              <p className="text-white/40 text-xs tracking-widest uppercase mb-4">
-                {path.sqft}
-              </p>
-              <h3 className="text-xl font-light text-white mb-4">{path.type}</h3>
-              <p className="text-white/50 text-sm leading-relaxed">{path.desc}</p>
-            </div>
-            <div className="mt-10 pt-6 border-t border-white/10 flex items-center justify-between">
-              <span className="text-white/30 text-xs">{path.stat}</span>
-              <Link
+            450+ Brands.
+            <br />
+            One Destination.
+          </motion.h2>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2, duration: 0.8 }}
+            className="text-white/40 text-sm max-w-sm leading-relaxed"
+          >
+            From global flagship stores to emerging brand pop-ups — American Dream offers the most diverse and high-performing retail environment in North America.
+          </motion.p>
+        </div>
+
+        {/* ── Brand ticker ──────────────────────────────────────────────────── */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="relative overflow-hidden mb-6 border-t border-b border-white/10"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
+          {/* Fade edges */}
+          <div
+            className="pointer-events-none absolute left-0 top-0 h-full w-28
+                        bg-gradient-to-r from-zinc-950 to-transparent z-10"
+          />
+          <div
+            className="pointer-events-none absolute right-0 top-0 h-full w-28
+                        bg-gradient-to-l from-zinc-950 to-transparent z-10"
+          />
+
+          {/* Scrolling reel — doubled for seamless loop */}
+          <motion.div
+            className="flex"
+            animate={isPaused ? {} : { x: ["0%", "-50%"] }}
+            transition={{
+              duration: 32,
+              ease: "linear",
+              repeat: Infinity,
+              repeatType: "loop",
+            }}
+          >
+            {[...brands, ...brands].map((brand, i) => (
+              <BrandTile key={`${brand.name}-${i}`} brand={brand} />
+            ))}
+          </motion.div>
+        </motion.div>
+
+        {/* ── Leasing path cards ────────────────────────────────────────────── */}
+        <div className="grid md:grid-cols-3 gap-px bg-white/10">
+          {leasingPaths.map((path, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.15, duration: 0.7 }}
+              className="bg-zinc-950 p-6 md:p-7 min-h-[270px] flex flex-col justify-between
+                       group hover:bg-white/5 transition-colors duration-300"
+            >
+              <div>
+                <p className="text-white/40 text-xs tracking-widest uppercase mb-4">{path.sqft}</p>
+                <h3 className="text-xl font-light text-white mb-4">{path.type}</h3>
+                <p className="text-white/50 text-sm leading-relaxed">{path.desc}</p>
+              </div>
+              <div className="mt-7 pt-5 border-t border-white/10 flex items-center justify-between gap-4">
+                <span className="text-white/30 text-xs">{path.stat}</span>
+                {/* <Link
                 href={path.href}
                 className="text-white text-xs tracking-widest uppercase
                            hover:underline underline-offset-4 transition"
               >
                 Explore →
-              </Link>
-            </div>
-          </motion.div>
-        ))}
+              </Link> */}
+                <button
+                  onClick={() => {
+                    setShowPopup(true);
+                    setTimeout(() => setShowPopup(false), 1500);
+                  }}
+                  className="text-white text-xs tracking-widest uppercase
+             hover:underline underline-offset-4 transition"
+                >
+                  Explore →
+                </button>
+              </div>
+
+              {showPopup && (
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-50 flex items-center justify-center">
+                  {/* Background blur */}
+                  <div className="absolute inset-0 bg-black/20 backdrop-blur-md" />
+
+                  {/* Popup box */}
+                  <motion.div
+                    initial={{ scale: 0.9, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    exit={{ scale: 0.9, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="relative z-10 bg-zinc-900 border border-white/10 px-10 py-6 rounded-lg"
+                  >
+                    <p className="text-white text-sm tracking-widest uppercase">Work in Progress</p>
+                  </motion.div>
+                </motion.div>
+              )}
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );

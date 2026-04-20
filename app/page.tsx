@@ -93,10 +93,11 @@
 //   );
 // }
 
-// app/page.tsx
 "use client";
+
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+
 import Home from "@/components/sections/Home";
 import Property from "@/components/sections/Property";
 import Retail from "@/components/sections/Retail";
@@ -105,27 +106,24 @@ import Dining from "@/components/sections/Dining";
 import Entertainment from "@/components/sections/Entertainment";
 import Events from "@/components/sections/Events";
 import Contact from "@/components/sections/Contact";
-import DeckNav from "@/components/ui/DeckNav";
 
-const slides = [
-  { id: "home",          component: <Home /> },
-  { id: "property",      component: <Property /> },
-  { id: "retail",        component: <Retail /> },
-  { id: "luxury",        component: <Luxury /> },
-  { id: "dining",        component: <Dining /> },
-  { id: "entertainment", component: <Entertainment /> },
-  { id: "events",        component: <Events /> },
-  { id: "partner",       component: <Contact /> },
-];
+import DeckNav from "@/components/ui/DeckNav";
+import Loader from "@/components/ui/Loader";
 
 export default function Page() {
+  // ✅ ALL hooks at top (fixes your error)
+  const [entered, setEntered] = useState(false);
   const [current, setCurrent] = useState(0);
-  const [direction, setDirection] = useState(1); // 1 = forward, -1 = backward
+  const [direction, setDirection] = useState(1);
 
-  const goTo = useCallback((index: number) => {
-    setDirection(index > current ? 1 : -1);
-    setCurrent(index);
-  }, [current]);
+  const goTo = useCallback(
+    (index: number) => {
+      if (index === current) return;
+      setDirection(index > current ? 1 : -1);
+      setCurrent(index);
+    },
+    [current]
+  );
 
   const next = useCallback(() => {
     if (current < slides.length - 1) goTo(current + 1);
@@ -135,29 +133,61 @@ export default function Page() {
     if (current > 0) goTo(current - 1);
   }, [current, goTo]);
 
-  // Keyboard navigation — arrow keys
+    const slides = [
+  { id: "home", component: <Home /> },
+  { id: "property", component: <Property /> },
+  { id: "retail", component: <Retail /> },
+  { id: "luxury", component: <Luxury/> },
+  { id: "dining", component: <Dining /> },
+  { id: "entertainment", component: <Entertainment /> },
+  { id: "events", component: <Events /> },
+  { id: "partner", component: <Contact goTo={goTo} />},
+];
+
+  // ✅ Keyboard navigation (only after entering)
   useEffect(() => {
+    if (!entered) return;
+
     const handler = (e: KeyboardEvent) => {
-      if (e.key === "ArrowDown" || e.key === "ArrowRight") next();
-      if (e.key === "ArrowUp"   || e.key === "ArrowLeft")  prev();
+      if (e.key === "ArrowRight") next();
+      if (e.key === "ArrowLeft") prev();
     };
+
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [next, prev]);
+  }, [entered, next, prev]);
 
+  // ✅ Transition animations (premium feel)
   const variants = {
-    enter:  (dir: number) => ({ opacity: 0, y: dir > 0 ? 40 : -40 }),
-    center: { opacity: 1, y: 0 },
-    exit:   (dir: number) => ({ opacity: 0, y: dir > 0 ? -40 : 40 }),
+    enter: (dir: number) => ({
+      opacity: 0,
+      scale: 0.98,
+      y: dir > 0 ? 60 : -60,
+    }),
+    center: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+    },
+    exit: (dir: number) => ({
+      opacity: 0,
+      scale: 0.98,
+      y: dir > 0 ? -60 : 60,
+    }),
   };
+
+  // ✅ Intro gate (AFTER hooks — correct)
+  if (!entered) {
+    return <Loader onEnter={() => setEntered(true)} />;
+  }
 
   return (
     <div className="h-screen w-screen overflow-hidden bg-black">
 
-      {/* Persistent top nav — clicking jumps to that slide */}
-      <DeckNav current={current} total={slides.length} goTo={goTo} />
+      {/* Top navigation */}
+      {/* <DeckNav current={current} total={slides.length} goTo={goTo} /> */}
 
-      {/* Full-screen slide area */}
+      {/* Slides container */}
       <div className="h-full w-full relative">
         <AnimatePresence custom={direction} mode="wait">
           <motion.div
@@ -167,44 +197,44 @@ export default function Page() {
             initial="enter"
             animate="center"
             exit="exit"
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute inset-0 overflow-y-auto"
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute inset-0 overflow-hidden"
           >
             {slides[current].component}
           </motion.div>
         </AnimatePresence>
       </div>
 
-      {/* Prev / Next arrows */}
+      {/* Navigation arrows */}
       <div className="fixed bottom-8 right-8 z-50 flex gap-3">
         <button
           onClick={prev}
           disabled={current === 0}
           className="w-10 h-10 border border-white/20 text-white/50
-                     hover:border-white/60 hover:text-white
+                     hover:border-white hover:text-white
                      disabled:opacity-20 disabled:cursor-not-allowed
-                     transition-all duration-300 flex items-center justify-center text-sm"
+                     transition-all duration-300 flex items-center justify-center"
         >
-          {/* ↑ */}
-           ←
+          ←
         </button>
+
         <button
           onClick={next}
           disabled={current === slides.length - 1}
           className="w-10 h-10 border border-white/20 text-white/50
-                     hover:border-white/60 hover:text-white
+                     hover:border-white hover:text-white
                      disabled:opacity-20 disabled:cursor-not-allowed
-                     transition-all duration-300 flex items-center justify-center text-sm"
+                     transition-all duration-300 flex items-center justify-center"
         >
-          {/* ↓ */}
           →
         </button>
       </div>
 
-      {/* Slide counter — bottom left */}
+      {/* Slide counter */}
       <div className="fixed bottom-8 left-8 z-50">
         <p className="text-white/20 text-xs tracking-widest">
-          {String(current + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}
+          {String(current + 1).padStart(2, "0")} /{" "}
+          {String(slides.length).padStart(2, "0")}
         </p>
       </div>
     </div>
