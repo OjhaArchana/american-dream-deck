@@ -186,7 +186,7 @@ export default function Page() {
         </button>
       </div>
 
-      {/* Counter */}
+      {/*Counter*/}
       <div className="fixed bottom-8 left-8 z-50">
         <p className="text-white/20 text-xs tracking-widest">
           {String(current + 1).padStart(2, "0")} /{" "}
