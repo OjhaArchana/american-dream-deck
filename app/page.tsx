@@ -84,40 +84,40 @@ export default function Page() {
   }, [entered, next, prev]);
 
   // 📱 Touch swipe (mobile)
-  useEffect(() => {
-    if (!entered) return;
+  // useEffect(() => {
+  //   if (!entered) return;
 
-    let startY = 0;
+  //   let startY = 0;
 
-    const handleTouchStart = (e: TouchEvent) => {
-      startY = e.touches[0].clientY;
-    };
+  //   const handleTouchStart = (e: TouchEvent) => {
+  //     startY = e.touches[0].clientY;
+  //   };
 
-    const handleTouchEnd = (e: TouchEvent) => {
-      if (isThrottled.current) return;
+  //   const handleTouchEnd = (e: TouchEvent) => {
+  //     if (isThrottled.current) return;
 
-      const endY = e.changedTouches[0].clientY;
-      const diff = startY - endY;
+  //     const endY = e.changedTouches[0].clientY;
+  //     const diff = startY - endY;
 
-      if (Math.abs(diff) < 50) return;
+  //     if (Math.abs(diff) < 50) return;
 
-      if (diff > 0) next();
-      else prev();
+  //     if (diff > 0) next();
+  //     else prev();
 
-      isThrottled.current = true;
-      setTimeout(() => {
-        isThrottled.current = false;
-      }, 800);
-    };
+  //     isThrottled.current = true;
+  //     setTimeout(() => {
+  //       isThrottled.current = false;
+  //     }, 800);
+  //   };
 
-    window.addEventListener("touchstart", handleTouchStart);
-    window.addEventListener("touchend", handleTouchEnd);
+  //   window.addEventListener("touchstart", handleTouchStart);
+  //   window.addEventListener("touchend", handleTouchEnd);
 
-    return () => {
-      window.removeEventListener("touchstart", handleTouchStart);
-      window.removeEventListener("touchend", handleTouchEnd);
-    };
-  }, [entered, next, prev]);
+  //   return () => {
+  //     window.removeEventListener("touchstart", handleTouchStart);
+  //     window.removeEventListener("touchend", handleTouchEnd);
+  //   };
+  // }, [entered, next, prev]);
 
   // 🎬 Animation variants
  const variants = {
