@@ -112,7 +112,7 @@ export default function Home() {
         className="hero-video absolute inset-0 w-full h-full"
         style={{ filter: "brightness(0.7) contrast(1.1) saturate(1.1)" }}
       >
-        <source src="/videos/heroVideo.mp4" type="video/mp4" />
+        <source src="/videos/hero.mp4" type="video/mp4" />
       </video>
 
       {/* Animated gradient overlay */}
