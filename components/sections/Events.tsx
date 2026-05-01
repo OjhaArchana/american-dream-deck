@@ -241,7 +241,7 @@ const pastEvents = [
     type: "Major Sporting Event",
     attendance: "15,000",
     desc: "Hosted the AFL championship game, drawing national media coverage and sold-out attendance.",
-    videoUrl: "/videos/arenabowl-clip.mp4",
+    videoUrl: "https://res.cloudinary.com/dpjtxigne/video/upload/v1777653138/arenabowl-clip_yq3cqq.mp4",
     posterUrl: "/images/ai-generated/arenabowl-poster.png",
   },
   {
@@ -249,7 +249,7 @@ const pastEvents = [
     type: "Brand Activation",
     attendance: "8,000+",
     desc: "Three-day product launch activation across the entertainment plaza, with live performances and exclusive drops.",
-    videoUrl: "/videos/nike-activation.mp4",
+    videoUrl: "https://res.cloudinary.com/dpjtxigne/video/upload/v1777653096/nike-activation_hnq9gn.mp4",
     posterUrl: "/images/ai-generated/nike-poster.png",
   },
   {
@@ -257,7 +257,7 @@ const pastEvents = [
     type: "Live Entertainment",
     attendance: "50,000+",
     desc: "Multi-week seasonal spectacular using the NHL ice rink as a performance stage.",
-    videoUrl: "/videos/holiday-on-ice.mp4",
+    videoUrl: "https://res.cloudinary.com/dpjtxigne/video/upload/v1777653078/holiday-on-ice_mcjmss.mp4",
     posterUrl: "/images/ai-generated/holiday-poster.png",
   },
   {
@@ -265,7 +265,7 @@ const pastEvents = [
     type: "Cultural Event",
     attendance: "25,000",
     desc: "Weekend destination dining event featuring 30+ international chefs and live culinary demonstrations.",
-    videoUrl: "/videos/food-festival.mp4",
+    videoUrl: "https://res.cloudinary.com/dpjtxigne/video/upload/v1777653129/food-festival_j0ovvj.mp4",
     posterUrl: "/images/ai-generated/foodfest-poster.png",
   },
 ];

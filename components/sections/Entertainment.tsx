@@ -13,7 +13,7 @@ const attractions = [
     tag: "Theme Park",
     image: "/images/ai-generated/theme-park-ai.png",
     videoPoster: "/images/ai-generated/theme-park-ai.png",
-    videoUrl: "/videos/theme-park-loop.mp4",
+    videoUrl: "https://res.cloudinary.com/dpjtxigne/video/upload/v1777653062/theme-park-loop_o3funk.mp4",
   },
   {
     title: "Big SNOW",
@@ -23,7 +23,7 @@ const attractions = [
     tag: "Indoor Ski",
     image: "/images/ai-generated/bigsnow-ai.png",
     videoPoster: "/images/ai-generated/bigsnow-ai.png",
-   videoUrl: "/videos/bigsnow-loop.mp4",
+   videoUrl: "https://res.cloudinary.com/dpjtxigne/video/upload/v1777653129/bigsnow-loop_nqd5hr.mp4",
   },
   {
     title: "DreamWorks Water Park",
@@ -34,7 +34,7 @@ const attractions = [
     tag: "Water Park",
     image: "/images/ai-generated/waterpark-poster.png",
     videoPoster: "/images/ai-generated/waterpark-poster.png",
-    videoUrl: "/videos/waterpark-ai.mp4",
+    videoUrl: "https://res.cloudinary.com/dpjtxigne/video/upload/v1777653094/waterpark-ai_cb6adz.mp4",
   },
   {
     title: "NHL Ice Rink",
@@ -44,7 +44,7 @@ const attractions = [
     tag: "Ice Rink",
     image: "/images/ai-generated/icerink-poster.png",
     videoPoster: "/images/ai-generated/icerink-poster.png",
-    videoUrl: "/videos/icerink-ai.mp4",
+    videoUrl: "https://res.cloudinary.com/dpjtxigne/video/upload/v1777653079/icerink-ai_mf8vyz.mp4",
   },
 ];
 
