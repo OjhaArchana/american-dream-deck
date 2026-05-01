@@ -1,6 +1,6 @@
 "use client";
-import { motion } from "framer-motion";
-import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 
 const paths = [
   {
@@ -10,6 +10,7 @@ const paths = [
     cta: "Explore Leasing",
     href: "/leasing",
     stat: "Now Leasing",
+    statDetail: "180+ flagship locations • 200+ mid-tier • 50+ pop-up",
   },
   {
     title: "Become a Sponsor",
@@ -18,6 +19,7 @@ const paths = [
     cta: "View Opportunities",
     href: "/sponsorship",
     stat: "Custom packages available",
+    statDetail: "Naming rights • Title sponsors • Activation zones",
   },
   {
     title: "Book a Venue",
@@ -26,104 +28,191 @@ const paths = [
     cta: "Book Now",
     href: "#events",
     stat: "Inquiry response within 48h",
+    statDetail: "3 venues • 20K capacity • 365 days/year",
   },
 ];
 
 export default function Contact({ goTo }: { goTo: (index: number) => void }) {
-    return (
-    <section id="partner" className="bg-black text-white px-6 md:px-13 py-6 min-h-screen flex flex-col justify-center">
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
-      {/* Header */}
-      <motion.p
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        className="text-white/40 text-xs tracking-[0.4em] uppercase mb-6"
-      >
-        Partner With Us
-      </motion.p>
+  return (
+    <section id="partner" className="bg-black text-white px-6 md:px-13 py-12 md:py-16 h-full overflow-y-auto">
+      <div className="w-full max-w-[1700px] mx-auto">
+        
+        {/* Header - Compact */}
+        <div className="text-center mb-8">
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-[#C5A059]/60 text-[10px] tracking-[0.3em] uppercase mb-2"
+          >
+            Chapter Final
+          </motion.p>
 
-      <motion.h2
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        className="text-4xl md:text-6xl font-light mb-6 max-w-xl leading-tight"
-      >
-        Ready to Be
-        <br />
-        <span className="italic">Part of This?</span>
-      </motion.h2>
-
-      <motion.p
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.2 }}
-        className="text-white/40 text-sm mb-20 max-w-md leading-relaxed"
-      >
-        American Dream offers three paths to commercial partnership. Each one
-        connects your brand to 40 million visitors and the most-talked-about
-        destination in the New York metro area.
-      </motion.p>
-
-      {/* Path cards */}
-      <div className="grid md:grid-cols-3 gap-px bg-white/10">
-        {paths.map((path, i) => (
-          <motion.div
-            key={i}
+          <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: i * 0.15, duration: 0.7 }}
-            className="bg-black p-12 flex flex-col justify-between group hover:bg-white/5 transition-colors duration-300"
+            transition={{ duration: 0.8 }}
+            className="text-4xl md:text-6xl font-light"
           >
-            <div>
-              <p className="text-white/30 text-xs tracking-widest uppercase mb-4">
-                {path.subtitle}
-              </p>
-              <h3 className="text-2xl font-light text-white mb-6">{path.title}</h3>
-              <p className="text-white/50 text-sm leading-relaxed">{path.desc}</p>
-            </div>
+            Ready to Be <span className="gold-text italic">Part of This?</span>
+          </motion.h2>
 
-            <div className="mt-12 pt-6 border-t border-white/10">
-              <p className="text-white/30 text-xs mb-4">{path.stat}</p>
-              {/* <Link
-                href={path.href}
-                className="inline-block border border-white/30 text-white text-xs tracking-widest uppercase px-6 py-3 hover:bg-white hover:text-black transition-all duration-500"
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="text-white/40 text-sm max-w-2xl mx-auto mt-4 leading-relaxed"
+          >
+            Three paths to commercial partnership. Each connects your brand to 40M+ visitors 
+            at the most-talked-about destination in the NY metro area.
+          </motion.p>
+        </div>
+
+        {/* Compact Cards Grid */}
+        <div className="grid md:grid-cols-3 gap-5">
+          {paths.map((path, i) => {
+            const isHovered = hoveredIndex === i;
+            
+            return (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1, duration: 0.6 }}
+                onMouseEnter={() => setHoveredIndex(i)}
+                onMouseLeave={() => setHoveredIndex(null)}
+                className={`
+                  relative bg-gradient-to-b from-black to-zinc-950 
+                  rounded-xl overflow-hidden cursor-pointer
+                  border transition-all duration-500
+                  ${isHovered 
+                    ? "border-[#C5A059]/50 shadow-2xl shadow-[#C5A059]/10 -translate-y-2" 
+                    : "border-white/10 hover:border-white/20"
+                  }
+                `}
               >
-                {path.cta} →
-              </Link> */}
-              <button
-  onClick={() => {
-    if (path.title === "Lease a Space") goTo(2); // retail
-    if (path.title === "Become a Sponsor") goTo(7); // partner (stay or open form later)
-    if (path.title === "Book a Venue") goTo(6); // events
-  }}
-  className="inline-block border border-white/30 text-white text-xs tracking-widest uppercase px-6 py-3 hover:bg-white hover:text-black transition-all duration-500"
->
-  {path.cta} →
-</button>
-            </div>
-          </motion.div>
-        ))}
-      </div>
+                {/* Card Content - Compact by default, expands on hover */}
+                <div className="p-6 md:p-7">
+                  {/* Subtitle Badge */}
+                  <div className="mb-4">
+                    <span className="text-[#C5A059]/70 text-[10px] tracking-[0.2em] uppercase">
+                      {path.subtitle}
+                    </span>
+                  </div>
 
-      {/* Footer strip */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.4 }}
-        className="mt-24 pt-12 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6"
-      >
-        <p className="text-white/20 text-xs tracking-widest uppercase">
-          © American Dream · East Rutherford, New Jersey
-        </p>
-        <p className="text-white/20 text-xs">
-          americandream.com · commercial@americandream.com
-        </p>
-      </motion.div>
+                  {/* Title */}
+                  <h3 className="text-xl md:text-2xl font-light text-white mb-3">
+                    {path.title}
+                  </h3>
+
+                  {/* Description - Limited lines, expands on hover */}
+                  <motion.div
+                    animate={{ 
+                      height: isHovered ? "auto" : "auto",
+                    }}
+                    className="relative"
+                  >
+                    <p className={`
+                      text-white/50 text-sm leading-relaxed
+                      ${!isHovered ? "line-clamp-2" : ""}
+                    `}>
+                      {path.desc}
+                    </p>
+                    
+                    {/* Expanded details - Only visible on hover */}
+                    <AnimatePresence>
+                      {isHovered && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: 10 }}
+                          transition={{ duration: 0.3, delay: 0.1 }}
+                          className="mt-4 pt-4 border-t border-white/10"
+                        >
+                          <p className="text-white/40 text-xs leading-relaxed">
+                            {path.statDetail}
+                          </p>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </motion.div>
+
+                  {/* Bottom Section - Always visible but compact */}
+                  <div className="mt-5 pt-4 border-t border-white/10">
+                    <div className="flex items-center justify-between">
+                      {/* Stat badge - compact */}
+                      <span className={`
+                        text-[9px] font-mono transition-all duration-300
+                        ${isHovered ? "text-[#C5A059]" : "text-white/30"}
+                      `}>
+                        {path.stat}
+                      </span>
+
+                      {/* CTA Button - compact, expands slightly on hover */}
+                      <motion.button
+                        onClick={() => {
+                          if (path.title === "Lease a Space") goTo(2);
+                          if (path.title === "Become a Sponsor") goTo(7);
+                          if (path.title === "Book a Venue") goTo(6);
+                        }}
+                        animate={{
+                          paddingLeft: isHovered ? "1.25rem" : "1rem",
+                          paddingRight: isHovered ? "1.25rem" : "1rem",
+                        }}
+                        className={`
+                          text-[10px] tracking-widest uppercase 
+                          transition-all duration-500 flex items-center gap-1
+                          ${isHovered 
+                            ? "text-[#C5A059]" 
+                            : "text-white/50 hover:text-white/80"
+                          }
+                        `}
+                      >
+                        {path.cta}
+                        <motion.span
+                          animate={{ x: isHovered ? 4 : 0 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          →
+                        </motion.span>
+                      </motion.button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Hover gradient overlay */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: isHovered ? 1 : 0 }}
+                  transition={{ duration: 0.4 }}
+                  className="absolute inset-0 pointer-events-none bg-gradient-to-t from-[#C5A059]/5 via-transparent to-transparent"
+                />
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* Footer strip - Compact */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.4 }}
+          className="mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4"
+        >
+          <p className="text-white/20 text-[10px] tracking-widest uppercase">
+            © American Dream · East Rutherford, New Jersey
+          </p>
+          <p className="text-white/20 text-[10px]">
+            americandream.com · commercial@americandream.com
+          </p>
+        </motion.div>
+      </div>
     </section>
   );
 }

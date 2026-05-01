@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { AnimatePresence } from "framer-motion";
 
 import Home from "@/components/sections/Home";
 import Property from "@/components/sections/Property";
@@ -13,187 +13,72 @@ import Events from "@/components/sections/Events";
 import Contact from "@/components/sections/Contact";
 
 import Loader from "@/components/ui/Loader";
+import SideNav from "@/components/ui/SideNav";
+import HotspotMap from "@/components/ui/HotspotMap";
+import { DeckProvider } from "@/components/ui/DeckContent";
+import HorizontalSlide from "@/components/ui/HorizontalSlide";
+import DeckArrows from "@/components/ui/DeckArrows";
 
 export default function Page() {
   const [entered, setEntered] = useState(false);
-  const [current, setCurrent] = useState(0);
-  const [direction, setDirection] = useState(1);
+  const [showHotspotMap, setShowHotspotMap] = useState(false);
 
-  // throttle control
-  const isThrottled = useRef(false);
-
-  const goTo = useCallback(
-    (index: number) => {
-      if (index === current) return;
-      setDirection(index > current ? 1 : -1);
-      setCurrent(index);
-    },
-    [current]
-  );
-
+  // Define slides - Category mode only (journey removed)
   const slides = [
-    { id: "home", component: <Home /> },
-    { id: "property", component: <Property /> },
-    { id: "retail", component: <Retail /> },
-    { id: "luxury", component: <Luxury /> },
-    { id: "dining", component: <Dining /> },
-    { id: "entertainment", component: <Entertainment /> },
-    { id: "events", component: <Events /> },
-    { id: "partner", component: <Contact goTo={goTo} /> },
+    { id: "home", component: <Home />, label: "Home", icon: "🏠" },
+    { id: "property", component: <Property />, label: "Why Here", icon: "📊" },
+    { id: "retail", component: <Retail />, label: "Retail", icon: "🛍️" },
+    { id: "luxury", component: <Luxury />, label: "Luxury", icon: "💎" },
+    { id: "dining", component: <Dining />, label: "Dining", icon: "🍽️" },
+    { id: "entertainment", component: <Entertainment />, label: "Entertainment", icon: "🎢" },
+    { id: "events", component: <Events />, label: "Events", icon: "🎪" },
+    { id: "contact", component: <Contact goTo={() => {}} />, label: "Partner", icon: "🤝" },
   ];
 
-  const next = useCallback(() => {
-    if (current < slides.length - 1) goTo(current + 1);
-  }, [current, goTo, slides.length]);
+  const sectionsForNav = slides.map((slide, index) => ({
+    id: slide.id,
+    label: slide.label,
+    icon: slide.icon,
+    index: index,
+  }));
 
-  const prev = useCallback(() => {
-    if (current > 0) goTo(current - 1);
-  }, [current, goTo]);
-
-  // 🔑 Keyboard navigation
-  useEffect(() => {
-    if (!entered) return;
-
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === "ArrowDown" || e.key === "ArrowRight") next();
-      if (e.key === "ArrowUp" || e.key === "ArrowLeft") prev();
-    };
-
-    window.addEventListener("keydown", handler);
-    return () => window.removeEventListener("keydown", handler);
-  }, [entered, next, prev]);
-
-  // 🖱️ Wheel navigation (desktop)
-  useEffect(() => {
-    if (!entered) return;
-
-    const handleWheel = (e: WheelEvent) => {
-      if (isThrottled.current) return;
-
-      if (e.deltaY > 50) next();
-      else if (e.deltaY < -50) prev();
-
-      isThrottled.current = true;
-      setTimeout(() => {
-        isThrottled.current = false;
-      }, 800);
-    };
-
-    window.addEventListener("wheel", handleWheel, { passive: true });
-    return () => window.removeEventListener("wheel", handleWheel);
-  }, [entered, next, prev]);
-
-  // 📱 Touch swipe (mobile)
-  // useEffect(() => {
-  //   if (!entered) return;
-
-  //   let startY = 0;
-
-  //   const handleTouchStart = (e: TouchEvent) => {
-  //     startY = e.touches[0].clientY;
-  //   };
-
-  //   const handleTouchEnd = (e: TouchEvent) => {
-  //     if (isThrottled.current) return;
-
-  //     const endY = e.changedTouches[0].clientY;
-  //     const diff = startY - endY;
-
-  //     if (Math.abs(diff) < 50) return;
-
-  //     if (diff > 0) next();
-  //     else prev();
-
-  //     isThrottled.current = true;
-  //     setTimeout(() => {
-  //       isThrottled.current = false;
-  //     }, 800);
-  //   };
-
-  //   window.addEventListener("touchstart", handleTouchStart);
-  //   window.addEventListener("touchend", handleTouchEnd);
-
-  //   return () => {
-  //     window.removeEventListener("touchstart", handleTouchStart);
-  //     window.removeEventListener("touchend", handleTouchEnd);
-  //   };
-  // }, [entered, next, prev]);
-
-  // 🎬 Animation variants
- const variants = {
-  enter: {
-    opacity: 0,
-    scale: 0.96,
-  },
-  center: {
-    opacity: 1,
-    scale: 1,
-  },
-  exit: {
-    opacity: 0,
-    scale: 0.96,
-  },
-};
-
-  // 🚪 Loader gate
   if (!entered) {
     return <Loader onEnter={() => setEntered(true)} />;
   }
 
   return (
-    <div className="h-screen w-screen overflow-hidden bg-black overscroll-none">
-      
-      {/* Slides */}
-      <div className="h-full w-full relative">
-        <AnimatePresence custom={direction} mode="wait">
-          <motion.div
-            key={current}
-            custom={direction}
-            variants={variants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute inset-0"
-          >
-            {slides[current].component}
-          </motion.div>
-        </AnimatePresence>
-      </div>
-
-      {/* Arrows */}
-      <div className="fixed bottom-8 right-8 z-50 flex gap-3">
+    <DeckProvider totalSlides={slides.length}>
+      <div className="relative h-screen w-full overflow-hidden bg-[#0A0A0F]">
+        {/* Hotspot Map Button */}
         <button
-          onClick={prev}
-          disabled={current === 0}
-          className="w-10 h-10 border border-white/20 text-white/50
-                     hover:border-white hover:text-white
-                     disabled:opacity-20 disabled:cursor-not-allowed
-                     transition-all duration-300 flex items-center justify-center"
+          onClick={() => setShowHotspotMap(true)}
+          className="fixed bottom-24 right-6 z-50 bg-[#C5A059] text-black text-xs tracking-widest uppercase px-4 py-2 rounded-full hover:bg-[#E8D5A3] transition-all duration-300 shadow-lg"
         >
-          ←
+          📍 Explore Floor Plan
         </button>
 
-        <button
-          onClick={next}
-          disabled={current === slides.length - 1}
-          className="w-10 h-10 border border-white/20 text-white/50
-                     hover:border-white hover:text-white
-                     disabled:opacity-20 disabled:cursor-not-allowed
-                     transition-all duration-300 flex items-center justify-center"
-        >
-          →
-        </button>
-      </div>
+        {/* Hotspot Map Modal */}
+        {showHotspotMap && (
+          <HotspotMap onClose={() => setShowHotspotMap(false)} />
+        )}
 
-      {/*Counter*/}
-      <div className="fixed bottom-8 left-8 z-50">
-        <p className="text-white/20 text-xs tracking-widest">
-          {String(current + 1).padStart(2, "0")} /{" "}
-          {String(slides.length).padStart(2, "0")}
-        </p>
+        {/* Horizontal Slides */}
+        <div className="relative h-full w-full">
+          <AnimatePresence mode="wait">
+            {slides.map((slide, idx) => (
+              <HorizontalSlide key={idx} index={idx}>
+                {slide.component}
+              </HorizontalSlide>
+            ))}
+          </AnimatePresence>
+        </div>
+
+        {/* Navigation Arrows */}
+        <DeckArrows />
+
+        {/* Side Navigation */}
+        <SideNav sections={sectionsForNav} />
       </div>
-    </div>
+    </DeckProvider>
   );
 }
-

@@ -1,33 +1,42 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
+import AnimatedStats from "@/components/ui/AnimatedStats";
 
 const categories = [
   {
     name: "Fine Dining",
     desc: "White-tablecloth experiences from acclaimed chefs.",
     count: "8 restaurants",
-    image: "/images/fine-dine.jpg",
+    image: "/images/ai-generated/fine-dining.png",
   },
   {
     name: "Fast Casual",
     desc: "Premium quick-service for high-velocity footfall zones.",
     count: "40+ concepts",
-    image: "/images/casual-dining.jpg",
+    image: "/images/ai-generated/casual-dining.png",
   },
   {
     name: "Desserts & Cafes",
     desc: "Artisan coffee, patisseries, and destination dessert brands.",
     count: "15 concepts",
-    image: "/images/cafes-restuarants.jpg",
+    image: "/images/ai-generated/cafes-restaurants.png",
   },
   {
     name: "International Cuisine",
     desc: "Global flavors curated for a diverse, sophisticated audience.",
     count: "20+ cuisines",
-    image: "/images/international-cuisine.jpg",
+    image: "/images/ai-generated/international-cuisine.png",
   },
+];
+
+// Looping stats data
+const loopingStats = [
+  { value: 47, suffix: "%", label: "more time on-property for dining guests", glow: true },
+  { value: 3, suffix: "x", label: "more likely to make unplanned retail purchase", glow: true },
+  { value: 100, suffix: "+", label: "total dining options", glow: false },
+  { value: 125, suffix: " min", label: "average dwell time when dining", glow: false },
 ];
 
 function DiningCard({
@@ -43,7 +52,7 @@ function DiningCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.1, duration: 0.7 }}
-      className="bg-zinc-950 group hover:bg-white/5 transition-colors duration-300 cursor-default"
+      className="bg-zinc-950 group hover:bg-white/5 transition-colors duration-300 cursor-default h-full"
     >
       <div className="aspect-[16/10] relative overflow-hidden bg-zinc-900">
         <img
@@ -56,12 +65,12 @@ function DiningCard({
         <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all duration-700" />
       </div>
 
-      <div className="p-5 md:p-6">
-        <p className="text-white/30 text-xs tracking-widest uppercase mb-2">
+      <div className="p-4 md:p-5">
+        <p className="text-white/30 text-[10px] tracking-widest uppercase mb-1">
           {cat.count}
         </p>
-        <h3 className="text-white font-light text-lg md:text-xl mb-2">{cat.name}</h3>
-        <p className="text-white/40 text-sm leading-relaxed">{cat.desc}</p>
+        <h3 className="text-white font-light text-base md:text-lg mb-1">{cat.name}</h3>
+        <p className="text-white/40 text-xs leading-relaxed line-clamp-2">{cat.desc}</p>
       </div>
     </motion.div>
   );
@@ -69,95 +78,97 @@ function DiningCard({
 
 export default function Dining() {
   const [showInsight, setShowInsight] = useState(false);
+  const [currentStatIndex, setCurrentStatIndex] = useState(0);
+
+  // Loop through stats every 3 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentStatIndex((prev) => (prev + 1) % loopingStats.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const currentStat = loopingStats[currentStatIndex];
 
   return (
-    <section id="dining" className="min-h-screen flex items-center bg-zinc-950 text-white px-6 py-20 md:px-20 md:py-24">
-      <div className="w-full max-w-[1700px] mx-auto">
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="text-white/40 text-xs tracking-[0.4em] uppercase mb-5"
-        >
-          Dining & Lifestyle
-        </motion.p>
-
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-10 gap-6">
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="text-4xl md:text-6xl font-light max-w-lg leading-tight"
-          >
-            Food as a
-            <br />
-            <span className="italic">Destination</span>
-          </motion.h2>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="flex flex-col items-start md:items-end gap-4"
-          >
-            <div className="text-left md:text-right">
-              <p className="text-5xl font-light text-white">100+</p>
-              <p className="text-white/40 text-sm tracking-wide mt-1">Dining Options</p>
-            </div>
-
-            <button
-              type="button"
-              onClick={() => setShowInsight(true)}
-              className="border border-white/30 text-white text-xs tracking-widest uppercase px-5 py-3 hover:bg-white hover:text-black transition-all duration-300"
+    <section id="dining" className="h-full bg-zinc-950 text-white flex flex-col justify-center overflow-hidden">
+      <div className="px-6 md:px-20 py-8 md:py-12">
+        
+        {/* Header Row */}
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-6 gap-4">
+          {/* Left: Heading */}
+          <div>
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="text-[#C5A059]/60 text-[10px] tracking-[0.3em] uppercase mb-2"
             >
-              View Dining Insight
-            </button>
+              Dining & Lifestyle
+            </motion.p>
+            <motion.h2
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="text-3xl md:text-5xl font-light"
+            >
+              Food as a
+              <br />
+              <span className="italic gold-text">Destination</span>
+            </motion.h2>
+          </div>
+
+          {/* Right: Looping Animated Stat Card */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="w-full md:w-80 lg:w-96"
+          >
+            <div className="border border-[#C5A059]/30 rounded-xl bg-gradient-to-br from-black/60 to-[#C5A059]/5 p-4 text-center shadow-lg">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentStatIndex}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.4 }}
+                >
+                  <p className={`text-3xl md:text-4xl font-light mb-1 ${currentStat.glow ? "text-[#C5A059] drop-shadow-[0_0_15px_rgba(197,160,89,0.5)]" : "text-white"}`}>
+                    {currentStat.value}{currentStat.suffix}
+                  </p>
+                  <p className="text-white/60 text-xs leading-relaxed whitespace-nowrap">
+                    {currentStat.label}
+                  </p>
+                </motion.div>
+              </AnimatePresence>
+              
+              {/* Progress dots */}
+              <div className="flex justify-center gap-2 mt-3">
+                {loopingStats.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setCurrentStatIndex(idx)}
+                    className={`h-1 rounded-full transition-all duration-300 ${
+                      currentStatIndex === idx 
+                        ? "w-4 bg-[#C5A059]" 
+                        : "w-1 bg-white/30 hover:bg-white/50"
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
           </motion.div>
         </div>
 
-        <div className="relative">
-          <div className="grid md:grid-cols-4 gap-px bg-white/10">
-            {categories.map((cat, i) => (
-              <DiningCard key={cat.name} cat={cat} index={i} />
-            ))}
-          </div>
-
-          {showInsight && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="absolute inset-0 z-20 flex items-center justify-center bg-black/55 p-6 backdrop-blur-sm"
-            >
-              <motion.div
-                initial={{ opacity: 0, y: 18, scale: 0.98 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ duration: 0.35, ease: "easeOut" }}
-                className="relative w-full max-w-3xl border border-white/15 bg-black/80 px-8 py-9 shadow-2xl backdrop-blur-md md:px-12 md:py-11"
-              >
-                <button
-                  type="button"
-                  onClick={() => setShowInsight(false)}
-                  className="absolute right-5 top-5 flex h-8 w-8 items-center justify-center border border-white/20 text-xl leading-none text-white/50 transition-colors hover:border-white/50 hover:text-white"
-                  aria-label="Close dining insight"
-                >
-                  x
-                </button>
-
-                <p className="mb-6 text-white/35 text-xs tracking-[0.3em] uppercase">
-                  Internal Analytics, 2024
-                </p>
-
-                <p className="max-w-2xl text-2xl font-light leading-snug text-white/70 md:text-4xl">
-                  Dining guests spend{" "}
-                  <span className="text-white">47% more time on-property</span> and are{" "}
-                  <span className="text-white">3x more likely</span> to make an unplanned retail purchase.
-                </p>
-              </motion.div>
-            </motion.div>
-          )}
-        </div>
+        {/* Cards Grid - Compact to fit in one page */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-4">
+          {categories.map((cat, i) => (
+            <DiningCard key={cat.name} cat={cat} index={i} />
+          ))}
+        </div>       
       </div>
     </section>
   );
