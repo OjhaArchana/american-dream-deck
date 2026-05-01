@@ -31,7 +31,7 @@ export default function Loader({ onEnter }: { onEnter: () => void }) {
         loop
         className="absolute inset-0 w-full h-full object-cover opacity-40"
       >
-        <source src="https://collection.cloudinary.com/dpjtxigne/a634b55dac79d8c320538a467488535c" />
+        <source src="https://res.cloudinary.com/dpjtxigne/video/upload/v1777654050/Hero_2_o5rhv5.mp4" />
       </video>
 
       <div className="relative z-10 text-center">
