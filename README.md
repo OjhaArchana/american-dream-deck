@@ -46,7 +46,7 @@ Every section is built around a business action:
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/american-dream-deck.git
+git clone https://github.com/OjhaArchana/american-dream-deck/
 cd american-dream-deck
 
 # Install dependencies
