@@ -131,3 +131,38 @@ html, body {
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+/* Force no scrolling anywhere */
+html, body {
+  height: 100%;
+  overflow: hidden !important;
+  position: fixed;
+  width: 100%;
+}
+
+/* Ensure root div also doesn't scroll */
+#__next, 
+#root,
+main {
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Allow internal scrolling only where explicitly needed */
+.overflow-y-auto {
+  overflow-y: auto !important;
+}
+
+/* Custom scrollbar for any allowed internal scrolling */
+.overflow-y-auto::-webkit-scrollbar {
+  width: 4px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background: #C5A059;
+  border-radius: 4px;
+}

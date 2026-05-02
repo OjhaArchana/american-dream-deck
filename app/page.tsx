@@ -23,7 +23,6 @@ export default function Page() {
   const [entered, setEntered] = useState(false);
   const [showHotspotMap, setShowHotspotMap] = useState(false);
 
-  // Define slides - Category mode only (journey removed)
   const slides = [
     { id: "home", component: <Home />, label: "Home", icon: "🏠" },
     { id: "property", component: <Property />, label: "Why Here", icon: "📊" },
@@ -48,7 +47,9 @@ export default function Page() {
 
   return (
     <DeckProvider totalSlides={slides.length}>
+      {/* Main container - prevents ALL scrolling */}
       <div className="relative h-screen w-full overflow-hidden bg-[#0A0A0F]">
+        
         {/* Hotspot Map Button */}
         <button
           onClick={() => setShowHotspotMap(true)}
@@ -62,8 +63,8 @@ export default function Page() {
           <HotspotMap onClose={() => setShowHotspotMap(false)} />
         )}
 
-        {/* Horizontal Slides */}
-        <div className="relative h-full w-full">
+        {/* Horizontal Slides - each slide controls its own internal scrolling if needed */}
+        <div className="relative h-full w-full overflow-hidden">
           <AnimatePresence mode="wait">
             {slides.map((slide, idx) => (
               <HorizontalSlide key={idx} index={idx}>

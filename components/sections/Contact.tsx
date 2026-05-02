@@ -41,14 +41,14 @@ export default function Contact({ goTo }: { goTo: (index: number) => void }) {
         
         {/* Header - Compact */}
         <div className="text-center mb-8">
-          <motion.p
+          {/* <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             className="text-[#C5A059]/60 text-[10px] tracking-[0.3em] uppercase mb-2"
           >
             Chapter Final
-          </motion.p>
+          </motion.p> */}
 
           <motion.h2
             initial={{ opacity: 0, y: 30 }}

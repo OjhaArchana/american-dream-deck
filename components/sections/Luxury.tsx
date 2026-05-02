@@ -33,6 +33,7 @@ export default function Luxury() {
   const [showPopup, setShowPopup] = useState(false);
   const [imgsLoaded, setImgsLoaded] = useState<boolean[]>(new Array(brands.length).fill(false));
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const heatmapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const statuses = new Array(brands.length).fill(false);
@@ -70,6 +71,14 @@ export default function Luxury() {
   const handleBrandClick = (i: number) => {
     setActiveIndex(i);
     startInterval();
+  };
+
+  const scrollToHeatmap = () => {
+    heatmapRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -158,19 +167,16 @@ export default function Luxury() {
             <div className="border-t border-white/10" />
           </div>
 
-          {/* CTA */}
+          {/* CTA - Now redirects to heatmap section */}
           <motion.button
-            onClick={() => {
-              setShowPopup(true);
-              setTimeout(() => setShowPopup(false), 1500);
-            }}
+            onClick={scrollToHeatmap}
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.8 }}
             className="mt-6 self-start border border-white/30 text-white text-xs tracking-widest uppercase px-6 py-3 hover:bg-white hover:text-black transition-all duration-500"
           >
-            Inquire About Luxury Space
+            View Visitor Flow Data →
           </motion.button>
 
           {showPopup && (
@@ -191,8 +197,8 @@ export default function Luxury() {
         </motion.div>
       </div>
 
-      {/* 🔥 THE "I NEED TO BE HERE" MOMENT - Heatmap Toggle */}
-      <div className="border-t border-white/10 pt-16 pb-20 px-6 md:px-20">
+      {/* 🔥 THE "I NEED TO BE HERE" MOMENT - Heatmap Toggle with ref */}
+      <div ref={heatmapRef} className="border-t border-white/10 pt-16 pb-20 px-6 md:px-20 scroll-mt-20">
         <LuxuryHeatmapToggle 
           onInquire={() => {
             setShowPopup(true);
@@ -200,6 +206,20 @@ export default function Luxury() {
           }}
         />
       </div>
+
+      {/* Back to Top Button */}
+      <motion.button
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.5 }}
+        onClick={scrollToTop}
+        className="fixed bottom-24 right-6 z-50 w-10 h-10 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-white hover:bg-[#C5A059] hover:text-black hover:border-[#C5A059] transition-all duration-300 flex items-center justify-center shadow-lg"
+      >
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+      </motion.button>
     </section>
   );
 }

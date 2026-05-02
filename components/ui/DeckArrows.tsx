@@ -48,7 +48,7 @@ export default function DeckArrows() {
       </div>
 
       {/* Slide Counter */}
-      <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 bg-black/50 backdrop-blur-md rounded-full px-4 py-2 border border-white/10">
+      <div className="fixed bottom-3 left-1/2 -translate-x-1/2 z-50 bg-black/50 backdrop-blur-md rounded-full px-4 py-2 border border-white/10">
         <p className="text-white/60 text-xs tracking-widest">
           {String(currentIndex + 1).padStart(2, "0")} / {String(totalSlides).padStart(2, "0")}
         </p>
