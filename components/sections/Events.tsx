@@ -65,12 +65,12 @@ function BookingModal({ onClose }: { onClose: () => void }) {
         <p className="text-white/40 text-xs tracking-[0.4em] uppercase mb-4">
           Book a Venue
         </p>
-        <h3 className="text-2xl font-light text-white mb-8">
+        <h3 className="text-2xl font-light text-[#C5A059] mb-8">
           Tell Us About Your Event
         </h3>
         <div className="space-y-6">
           <div>
-            <label className="text-white/40 text-xs tracking-widest uppercase block mb-2">
+            <label className="text-[#C5A059]/40 text-xs tracking-widest uppercase block mb-2">
               Event Type
             </label>
             <select className="w-full bg-transparent border border-white/20 text-white px-4 py-3 text-sm focus:border-white/60 outline-none">
@@ -83,7 +83,7 @@ function BookingModal({ onClose }: { onClose: () => void }) {
             </select>
           </div>
           <div>
-            <label className="text-white/40 text-xs tracking-widest uppercase block mb-2">
+            <label className="text-[#C5A059]/40 text-xs tracking-widest uppercase block mb-2">
               Expected Attendance
             </label>
             <input
@@ -93,7 +93,7 @@ function BookingModal({ onClose }: { onClose: () => void }) {
             />
           </div>
           <div>
-            <label className="text-white/40 text-xs tracking-widest uppercase block mb-2">
+            <label className="text-[#C5A059]/40 text-xs tracking-widest uppercase block mb-2">
               Preferred Dates
             </label>
             <input
@@ -103,7 +103,7 @@ function BookingModal({ onClose }: { onClose: () => void }) {
             />
           </div>
           <div>
-            <label className="text-white/40 text-xs tracking-widest uppercase block mb-2">
+            <label className="text-[#C5A059]/40 text-xs tracking-widest uppercase block mb-2">
               Contact Email
             </label>
             <input
@@ -114,7 +114,7 @@ function BookingModal({ onClose }: { onClose: () => void }) {
           </div>
         </div>
         <div className="flex gap-4 mt-10">
-          <button className="flex-1 bg-white text-black text-xs tracking-widest uppercase py-4 hover:bg-white/90 transition">
+          <button className="flex-1 bg-[#C5A059] text-black text-xs tracking-widest uppercase py-4 hover:bg-[#C5A059]/90 transition">
             Submit Inquiry
           </button>
           <button onClick={onClose} className="px-6 border border-white/20 text-white/40 text-xs tracking-widest uppercase hover:border-white/40 transition">
@@ -256,7 +256,7 @@ export default function Events() {
               viewport={{ once: true }}
               transition={{ delay: 0.3 }}
               onClick={() => setModalOpen(true)}
-              className="border border-white/30 text-white text-xs tracking-widest uppercase px-6 py-3 hover:bg-white hover:text-black transition-all duration-500"
+              className="border border-[#C5A059]/30 text-[#C5A059] text-xs tracking-widest uppercase px-6 py-3 hover:bg-[#C5A059] hover:text-black transition-all duration-500"
             >
               Book a Venue
             </motion.button>

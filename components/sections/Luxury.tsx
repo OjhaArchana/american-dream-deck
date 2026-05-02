@@ -136,7 +136,7 @@ export default function Luxury() {
           <h2 className="text-4xl md:text-5xl xl:text-6xl font-light leading-tight mb-5">
             Luxury
             <br />
-            <span className="italic gold-text">Redefined</span>
+            <span className="italic text-[#C5A059]">Redefined</span>
           </h2>
           <p className="text-white/50 text-sm md:text-base leading-relaxed mb-7 max-w-sm">
             Where Manhattan&apos;s most discerning shoppers come when they leave Manhattan. 
@@ -174,7 +174,7 @@ export default function Luxury() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.8 }}
-            className="mt-6 self-start border border-white/30 text-white text-xs tracking-widest uppercase px-6 py-3 hover:bg-white hover:text-black transition-all duration-500"
+            className="mt-6 self-start border border-[#C5A059]/30 text-[#C5A059] text-xs tracking-widest uppercase px-6 py-3 hover:bg-[#C5A059] hover:text-black transition-all duration-500"
           >
             View Visitor Flow Data →
           </motion.button>

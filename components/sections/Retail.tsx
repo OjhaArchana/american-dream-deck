@@ -134,7 +134,7 @@ export default function Retail() {
             >
               450+ Brands.
               <br />
-              <span className="gold-text">One Destination.</span>
+              <span className="text-[#C5A059]">One Destination.</span>
             </motion.h2>
           </motion.div>
 
