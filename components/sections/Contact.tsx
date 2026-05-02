@@ -54,14 +54,14 @@ export default function Contact({ goTo }: { goTo: (index: number) => void }) {
 
   return (
     <section id="partner" className="h-full w-full bg-black text-white flex items-center justify-center">
-      <div className="w-full max-w-6xl mx-auto px-6 md:px-8 py-8">
+      <div className="w-full max-w-7xl mx-auto px-6 md:px-8 py-12 md:py-16 lg:py-20 h-full flex flex-col justify-center">
         
         {/* Header */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-8 md:mb-10">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-light"
+            className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light"
           >
             Ready to Be <span className="gold-text italic">Part of This?</span>
           </motion.h2>
@@ -69,7 +69,7 @@ export default function Contact({ goTo }: { goTo: (index: number) => void }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.1 }}
-            className="text-white/40 text-sm max-w-2xl mx-auto mt-3"
+            className="text-white/40 text-sm md:text-base max-w-2xl mx-auto mt-3 md:mt-4"
           >
             Three paths to commercial partnership. Each connects your brand to 40M+ visitors 
             at the most-talked-about destination in the NY metro area.
@@ -81,7 +81,7 @@ export default function Contact({ goTo }: { goTo: (index: number) => void }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="mb-5"
+          className="mb-3 md:mb-4"
         >
           <div className="bg-gradient-to-r from-[#C5A059]/10 to-transparent border-l-4 border-[#C5A059] p-4 rounded-r-xl">
             <div className="flex items-center justify-between flex-wrap gap-3">
@@ -93,7 +93,7 @@ export default function Contact({ goTo }: { goTo: (index: number) => void }) {
                     initial={{ opacity: 0, y: 5 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -5 }}
-                    className="text-white/70 text-sm"
+                    className="text-white/70 text-sm md:text-base"
                   >
                     "{testimonials[testimonialIndex].text}"
                   </motion.p>
@@ -122,20 +122,20 @@ export default function Contact({ goTo }: { goTo: (index: number) => void }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="flex justify-center mb-4"
+          className="flex justify-center mb-5 md:mb-5"
         >
           <button
             onClick={() => setShowWizard(true)}
-            className="group px-8 bg-[#C5A059]/10 border border-[#C5A059]/30 text-[#C5A059] text-sm tracking-widest uppercase rounded-full hover:bg-[#C5A059] hover:text-black transition-all duration-500 flex items-center justify-center gap-3"
+            className="group px-6 md:px-8 py-2 md:py-3 bg-[#C5A059]/10 border border-[#C5A059]/30 text-[#C5A059] text-xs md:text-sm tracking-widest uppercase rounded-full hover:bg-[#C5A059] hover:text-black transition-all duration-500 flex items-center justify-center gap-3"
           >
-            <span className="text-lg">✨</span>
+            <span className="text-base md:text-lg">✨</span>
             Find Your Perfect Path
             <span className="group-hover:translate-x-1 transition-transform">→</span>
           </button>
         </motion.div>
 
         {/* Cards Grid */}
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-5 md:gap-6 lg:gap-8">
           {paths.map((path, i) => {
             const isHovered = hoveredIndex === i;
             
@@ -150,14 +150,14 @@ export default function Contact({ goTo }: { goTo: (index: number) => void }) {
                 className={`
                   relative bg-gradient-to-b from-black to-zinc-950 
                   rounded-xl overflow-hidden cursor-pointer
-                  border transition-all duration-500
+                  border transition-all duration-500 flex flex-col h-full
                   ${isHovered 
                     ? "border-[#C5A059]/50 shadow-2xl shadow-[#C5A059]/10 -translate-y-1" 
                     : "border-white/10 hover:border-white/20"
                   }
                 `}
               >
-                <div className="p-6">
+                <div className="p-5 md:p-6 flex flex-col flex-grow">
                   {/* Subtitle Badge */}
                   <div className="mb-3">
                     <span className="text-[#C5A059]/60 text-[9px] tracking-[0.2em] uppercase">
@@ -166,7 +166,7 @@ export default function Contact({ goTo }: { goTo: (index: number) => void }) {
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-xl font-light text-white mb-3">
+                  <h3 className="text-xl md:text-2xl font-light text-white mb-3">
                     {path.title}
                   </h3>
 
@@ -195,8 +195,8 @@ export default function Contact({ goTo }: { goTo: (index: number) => void }) {
                     )}
                   </AnimatePresence>
 
-                  {/* Bottom Section */}
-                  <div className="mt-5 pt-4 border-t border-white/10">
+                  {/* Bottom Section - pushes to bottom */}
+                  <div className="mt-auto pt-4 border-t border-white/10">
                     <div className="flex items-center justify-between">
                       <span className={`
                         text-[10px] font-mono transition-all duration-300
@@ -253,7 +253,7 @@ export default function Contact({ goTo }: { goTo: (index: number) => void }) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.7 }}
-          className="mt-10 pt-6 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-3"
+          className="mt-10 md:mt-12 pt-6 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-3"
         >
           <p className="text-white/20 text-[10px] tracking-widest uppercase">
             © American Dream · East Rutherford, New Jersey
