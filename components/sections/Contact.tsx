@@ -17,7 +17,7 @@ const paths = [
     subtitle: "Brand Partnerships & Activations",
     desc: "Reach 40M+ annual visitors through premium sponsorship tiers, naming rights, and immersive brand activations.",
     cta: "View Opportunities",
-    stat: "Custom packages",
+    stat: "Custom packages available",
     statDetail: "Naming rights • Title sponsors • Activation zones",
     successStories: [{ brand: "Coca-Cola", metric: "8M+ impressions" }]
   },
@@ -26,7 +26,7 @@ const paths = [
     subtitle: "Events, Concerts & Conventions",
     desc: "500K+ event attendees per year. Three dedicated venues, 20,000-person capacity, 365 days available.",
     cta: "Book Now",
-    stat: "48h response",
+    stat: "Inquiry response within 48h",
     statDetail: "3 venues • 20K capacity • 365 days",
     successStories: [{ brand: "ArenaBowl", metric: "15K+ attendees" }]
   },
@@ -53,47 +53,47 @@ export default function Contact({ goTo }: { goTo: (index: number) => void }) {
   }, []);
 
   return (
-    <section id="partner" className="h-full w-full bg-black text-white flex items-center justify-center">
-      <div className="w-full max-w-7xl mx-auto px-6 md:px-8 py-12 md:py-16 lg:py-20 h-full flex flex-col justify-center">
+    <section id="partner" className="min-h-screen w-full bg-black text-white flex items-center justify-center">
+      <div className="w-full max-w-7xl mx-auto px-6 md:px-8 py-8 md:py-12 flex flex-col min-h-screen">
         
-        {/* Header */}
-        <div className="text-center mb-8 md:mb-10">
+        {/* Header - reduced top margin to fit better */}
+        <div className="text-center mb-6 md:mb-8">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light"
+            className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light"
           >
-            Ready to Be <span className="gold-text italic">Part of This?</span>
+            Ready to Be <span className="text-[#C5A059] italic">Part of This?</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.1 }}
-            className="text-white/40 text-sm md:text-base max-w-2xl mx-auto mt-3 md:mt-4"
+            className="text-white/40 text-xs md:text-sm max-w-2xl mx-auto mt-2 md:mt-3"
           >
             Three paths to commercial partnership. Each connects your brand to 40M+ visitors 
             at the most-talked-about destination in the NY metro area.
           </motion.p>
         </div>
 
-        {/* Success Stories Carousel */}
+        {/* Success Stories Carousel - compact */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="mb-3 md:mb-4"
+          className="mb-6"
         >
-          <div className="bg-gradient-to-r from-[#C5A059]/10 to-transparent border-l-4 border-[#C5A059] p-4 rounded-r-xl">
-            <div className="flex items-center justify-between flex-wrap gap-3">
-              <div className="flex items-center gap-3">
-                <span className="text-[#C5A059] text-[10px] tracking-wider uppercase">⭐ Success Story</span>
+          <div className="bg-gradient-to-r from-[#C5A059]/10 to-transparent border-l-4 border-[#C5A059] p-3 rounded-r-xl">
+            <div className="flex items-center justify-between flex-wrap gap-2">
+              <div className="flex items-center gap-2">
+                <span className="text-[#C5A059] text-[8px] tracking-wider uppercase">⭐ Success Story</span>
                 <AnimatePresence mode="wait">
                   <motion.p
                     key={testimonialIndex}
                     initial={{ opacity: 0, y: 5 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -5 }}
-                    className="text-white/70 text-sm md:text-base"
+                    className="text-white/70 text-xs md:text-sm"
                   >
                     "{testimonials[testimonialIndex].text}"
                   </motion.p>
@@ -105,37 +105,37 @@ export default function Contact({ goTo }: { goTo: (index: number) => void }) {
                     key={idx}
                     onClick={() => setTestimonialIndex(idx)}
                     className={`h-1 rounded-full transition-all duration-300 ${
-                      testimonialIndex === idx ? "w-5 bg-[#C5A059]" : "w-2 bg-white/30"
+                      testimonialIndex === idx ? "w-4 bg-[#C5A059]" : "w-1.5 bg-white/30"
                     }`}
                   />
                 ))}
               </div>
             </div>
-            <p className="text-white/40 text-xs mt-2 ml-8">
+            <p className="text-white/40 text-[10px] mt-1 ml-7">
               — {testimonials[testimonialIndex].brand}
             </p>
           </div>
         </motion.div>
 
-        {/* Find Your Path Button */}
+        {/* Find Your Path Button - centered, below carousel */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="flex justify-center mb-5 md:mb-5"
+          className="flex justify-center mb-8 md:mb-10"
         >
           <button
             onClick={() => setShowWizard(true)}
-            className="group px-6 md:px-8 py-2 md:py-3 bg-[#C5A059]/10 border border-[#C5A059]/30 text-[#C5A059] text-xs md:text-sm tracking-widest uppercase rounded-full hover:bg-[#C5A059] hover:text-black transition-all duration-500 flex items-center justify-center gap-3"
+            className="group px-5 md:px-6 py-2 bg-[#C5A059]/10 border border-[#C5A059]/30 text-[#C5A059] text-[10px] md:text-xs tracking-widest uppercase rounded-full hover:bg-[#C5A059] hover:text-black transition-all duration-500 flex items-center justify-center gap-2"
           >
-            <span className="text-base md:text-lg">✨</span>
+            <span className="text-sm md:text-base">✨</span>
             Find Your Perfect Path
             <span className="group-hover:translate-x-1 transition-transform">→</span>
           </button>
         </motion.div>
 
-        {/* Cards Grid */}
-        <div className="grid md:grid-cols-3 gap-5 md:gap-6 lg:gap-8">
+        {/* Cards Grid - takes most of the remaining space */}
+        <div className="grid md:grid-cols-3 gap-4 md:gap-5 flex-1 items-stretch">
           {paths.map((path, i) => {
             const isHovered = hoveredIndex === i;
             
@@ -157,21 +157,21 @@ export default function Contact({ goTo }: { goTo: (index: number) => void }) {
                   }
                 `}
               >
-                <div className="p-5 md:p-6 flex flex-col flex-grow">
+                <div className="p-4 md:p-5 flex flex-col flex-grow">
                   {/* Subtitle Badge */}
-                  <div className="mb-3">
-                    <span className="text-[#C5A059]/60 text-[9px] tracking-[0.2em] uppercase">
+                  <div className="mb-2">
+                    <span className="text-[#C5A059]/60 text-[8px] tracking-[0.2em] uppercase">
                       {path.subtitle.split(" • ")[0]}
                     </span>
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-xl md:text-2xl font-light text-white mb-3">
+                  <h3 className="text-lg md:text-xl font-light text-white mb-2">
                     {path.title}
                   </h3>
 
                   {/* Description */}
-                  <p className="text-white/50 text-sm leading-relaxed line-clamp-2">
+                  <p className="text-white/50 text-xs md:text-sm leading-relaxed line-clamp-2">
                     {path.desc}
                   </p>
 
@@ -183,12 +183,12 @@ export default function Contact({ goTo }: { goTo: (index: number) => void }) {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 10 }}
                         transition={{ duration: 0.3 }}
-                        className="mt-4 pt-3 border-t border-white/10"
+                        className="mt-3 pt-2 border-t border-white/10"
                       >
-                        <p className="text-white/40 text-xs leading-relaxed">
+                        <p className="text-white/40 text-[10px] leading-relaxed">
                           {path.statDetail}
                         </p>
-                        <p className="text-[#C5A059] text-[10px] mt-2">
+                        <p className="text-[#C5A059] text-[9px] mt-1">
                           📈 {path.successStories[0].metric} — {path.successStories[0].brand}
                         </p>
                       </motion.div>
@@ -196,10 +196,10 @@ export default function Contact({ goTo }: { goTo: (index: number) => void }) {
                   </AnimatePresence>
 
                   {/* Bottom Section - pushes to bottom */}
-                  <div className="mt-auto pt-4 border-t border-white/10">
+                  <div className="mt-auto pt-3 border-t border-white/10">
                     <div className="flex items-center justify-between">
                       <span className={`
-                        text-[10px] font-mono transition-all duration-300
+                        text-[9px] md:text-[10px] font-mono transition-all duration-300
                         ${isHovered ? "text-[#C5A059]" : "text-white/30"}
                       `}>
                         {path.stat}
@@ -212,11 +212,11 @@ export default function Contact({ goTo }: { goTo: (index: number) => void }) {
                           if (path.title === "Book a Venue") goTo(6);
                         }}
                         animate={{
-                          paddingLeft: isHovered ? "1rem" : "0.75rem",
-                          paddingRight: isHovered ? "1rem" : "0.75rem",
+                          paddingLeft: isHovered ? "0.875rem" : "0.625rem",
+                          paddingRight: isHovered ? "0.875rem" : "0.625rem",
                         }}
                         className={`
-                          text-[10px] tracking-widest uppercase 
+                          text-[9px] md:text-[10px] tracking-widest uppercase 
                           transition-all duration-300 flex items-center gap-1
                           ${isHovered 
                             ? "text-[#C5A059]" 
@@ -226,7 +226,7 @@ export default function Contact({ goTo }: { goTo: (index: number) => void }) {
                       >
                         {path.cta}
                         <motion.span
-                          animate={{ x: isHovered ? 4 : 0 }}
+                          animate={{ x: isHovered ? 3 : 0 }}
                           transition={{ duration: 0.3 }}
                         >
                           →
@@ -248,17 +248,17 @@ export default function Contact({ goTo }: { goTo: (index: number) => void }) {
           })}
         </div>
 
-        {/* Footer */}
+        {/* Footer - sticks to bottom naturally with flex */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.7 }}
-          className="mt-10 md:mt-12 pt-6 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-3"
+          className="mt-8 md:mt-10 pt-4 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-2"
         >
-          <p className="text-white/20 text-[10px] tracking-widest uppercase">
-            © American Dream · East Rutherford, New Jersey
+          <p className="text-white/20 text-[8px] md:text-[9px] tracking-widest uppercase">
+            © AMERICAN DREAM · EAST RUTHERFORD, NEW JERSEY
           </p>
-          <p className="text-white/20 text-[10px]">
+          <p className="text-white/20 text-[8px] md:text-[9px]">
             americandream.com · commercial@americandream.com
           </p>
         </motion.div>
