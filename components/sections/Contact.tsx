@@ -1,6 +1,6 @@
 "use client";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const paths = [
   {
@@ -8,72 +8,134 @@ const paths = [
     subtitle: "Retail, F&B, Flagship & Pop-Up",
     desc: "Join 450+ brands in North America's highest-footfall destination. Segmented leasing paths for every category.",
     cta: "Explore Leasing",
-    href: "/leasing",
     stat: "Now Leasing",
-    statDetail: "180+ flagship locations • 200+ mid-tier • 50+ pop-up",
+    statDetail: "180+ flagship • 200+ mid-tier • 50+ pop-up",
+    successStories: [{ brand: "Nike", metric: "340%↑ foot traffic" }]
   },
   {
     title: "Become a Sponsor",
     subtitle: "Brand Partnerships & Activations",
     desc: "Reach 40M+ annual visitors through premium sponsorship tiers, naming rights, and immersive brand activations.",
     cta: "View Opportunities",
-    href: "/sponsorship",
-    stat: "Custom packages available",
+    stat: "Custom packages",
     statDetail: "Naming rights • Title sponsors • Activation zones",
+    successStories: [{ brand: "Coca-Cola", metric: "8M+ impressions" }]
   },
   {
     title: "Book a Venue",
     subtitle: "Events, Concerts & Conventions",
     desc: "500K+ event attendees per year. Three dedicated venues, 20,000-person capacity, 365 days available.",
     cta: "Book Now",
-    href: "#events",
-    stat: "Inquiry response within 48h",
-    statDetail: "3 venues • 20K capacity • 365 days/year",
+    stat: "48h response",
+    statDetail: "3 venues • 20K capacity • 365 days",
+    successStories: [{ brand: "ArenaBowl", metric: "15K+ attendees" }]
   },
+];
+
+const testimonials = [
+  { text: "Since opening our flagship, foot traffic is up 340%", brand: "Nike" },
+  { text: "Our pop-up generated 15,000+ visits in 2 weeks", brand: "Emerging Brand" },
+  { text: "Sales exceeded projections by 200%", brand: "Luxury Retailer" },
 ];
 
 export default function Contact({ goTo }: { goTo: (index: number) => void }) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [showWizard, setShowWizard] = useState(false);
+  const [wizardStep, setWizardStep] = useState(1);
+  const [wizardSelection, setWizardSelection] = useState({ path: "", spaceType: "", timeline: "" });
+  const [testimonialIndex, setTestimonialIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTestimonialIndex((prev) => (prev + 1) % testimonials.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <section id="partner" className="bg-black text-white px-6 md:px-13 py-12 md:py-16 h-full overflow-y-auto">
-      <div className="w-full max-w-[1700px] mx-auto">
+    <section id="partner" className="h-full w-full bg-black text-white flex items-center justify-center">
+      <div className="w-full max-w-6xl mx-auto px-6 md:px-8 py-8">
         
-        {/* Header - Compact */}
+        {/* Header */}
         <div className="text-center mb-8">
-          {/* <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-[#C5A059]/60 text-[10px] tracking-[0.3em] uppercase mb-2"
-          >
-            Chapter Final
-          </motion.p> */}
-
           <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="text-4xl md:text-6xl font-light"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-4xl md:text-5xl lg:text-6xl font-light"
           >
             Ready to Be <span className="gold-text italic">Part of This?</span>
           </motion.h2>
-
           <motion.p
             initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-white/40 text-sm max-w-2xl mx-auto mt-4 leading-relaxed"
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.1 }}
+            className="text-white/40 text-sm max-w-2xl mx-auto mt-3"
           >
             Three paths to commercial partnership. Each connects your brand to 40M+ visitors 
             at the most-talked-about destination in the NY metro area.
           </motion.p>
         </div>
 
-        {/* Compact Cards Grid */}
-        <div className="grid md:grid-cols-3 gap-5">
+        {/* Success Stories Carousel */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="mb-5"
+        >
+          <div className="bg-gradient-to-r from-[#C5A059]/10 to-transparent border-l-4 border-[#C5A059] p-4 rounded-r-xl">
+            <div className="flex items-center justify-between flex-wrap gap-3">
+              <div className="flex items-center gap-3">
+                <span className="text-[#C5A059] text-[10px] tracking-wider uppercase">⭐ Success Story</span>
+                <AnimatePresence mode="wait">
+                  <motion.p
+                    key={testimonialIndex}
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -5 }}
+                    className="text-white/70 text-sm"
+                  >
+                    "{testimonials[testimonialIndex].text}"
+                  </motion.p>
+                </AnimatePresence>
+              </div>
+              <div className="flex gap-1">
+                {testimonials.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setTestimonialIndex(idx)}
+                    className={`h-1 rounded-full transition-all duration-300 ${
+                      testimonialIndex === idx ? "w-5 bg-[#C5A059]" : "w-2 bg-white/30"
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
+            <p className="text-white/40 text-xs mt-2 ml-8">
+              — {testimonials[testimonialIndex].brand}
+            </p>
+          </div>
+        </motion.div>
+
+        {/* Find Your Path Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          className="flex justify-center mb-4"
+        >
+          <button
+            onClick={() => setShowWizard(true)}
+            className="group px-8 bg-[#C5A059]/10 border border-[#C5A059]/30 text-[#C5A059] text-sm tracking-widest uppercase rounded-full hover:bg-[#C5A059] hover:text-black transition-all duration-500 flex items-center justify-center gap-3"
+          >
+            <span className="text-lg">✨</span>
+            Find Your Perfect Path
+            <span className="group-hover:translate-x-1 transition-transform">→</span>
+          </button>
+        </motion.div>
+
+        {/* Cards Grid */}
+        <div className="grid md:grid-cols-3 gap-6">
           {paths.map((path, i) => {
             const isHovered = hoveredIndex === i;
             
@@ -81,9 +143,8 @@ export default function Contact({ goTo }: { goTo: (index: number) => void }) {
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.6 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 + i * 0.1 }}
                 onMouseEnter={() => setHoveredIndex(i)}
                 onMouseLeave={() => setHoveredIndex(null)}
                 className={`
@@ -91,69 +152,59 @@ export default function Contact({ goTo }: { goTo: (index: number) => void }) {
                   rounded-xl overflow-hidden cursor-pointer
                   border transition-all duration-500
                   ${isHovered 
-                    ? "border-[#C5A059]/50 shadow-2xl shadow-[#C5A059]/10 -translate-y-2" 
+                    ? "border-[#C5A059]/50 shadow-2xl shadow-[#C5A059]/10 -translate-y-1" 
                     : "border-white/10 hover:border-white/20"
                   }
                 `}
               >
-                {/* Card Content - Compact by default, expands on hover */}
-                <div className="p-6 md:p-7">
+                <div className="p-6">
                   {/* Subtitle Badge */}
-                  <div className="mb-4">
-                    <span className="text-[#C5A059]/70 text-[10px] tracking-[0.2em] uppercase">
-                      {path.subtitle}
+                  <div className="mb-3">
+                    <span className="text-[#C5A059]/60 text-[9px] tracking-[0.2em] uppercase">
+                      {path.subtitle.split(" • ")[0]}
                     </span>
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-xl md:text-2xl font-light text-white mb-3">
+                  <h3 className="text-xl font-light text-white mb-3">
                     {path.title}
                   </h3>
 
-                  {/* Description - Limited lines, expands on hover */}
-                  <motion.div
-                    animate={{ 
-                      height: isHovered ? "auto" : "auto",
-                    }}
-                    className="relative"
-                  >
-                    <p className={`
-                      text-white/50 text-sm leading-relaxed
-                      ${!isHovered ? "line-clamp-2" : ""}
-                    `}>
-                      {path.desc}
-                    </p>
-                    
-                    {/* Expanded details - Only visible on hover */}
-                    <AnimatePresence>
-                      {isHovered && (
-                        <motion.div
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: 10 }}
-                          transition={{ duration: 0.3, delay: 0.1 }}
-                          className="mt-4 pt-4 border-t border-white/10"
-                        >
-                          <p className="text-white/40 text-xs leading-relaxed">
-                            {path.statDetail}
-                          </p>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </motion.div>
+                  {/* Description */}
+                  <p className="text-white/50 text-sm leading-relaxed line-clamp-2">
+                    {path.desc}
+                  </p>
 
-                  {/* Bottom Section - Always visible but compact */}
+                  {/* Hover expanded details */}
+                  <AnimatePresence>
+                    {isHovered && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 10 }}
+                        transition={{ duration: 0.3 }}
+                        className="mt-4 pt-3 border-t border-white/10"
+                      >
+                        <p className="text-white/40 text-xs leading-relaxed">
+                          {path.statDetail}
+                        </p>
+                        <p className="text-[#C5A059] text-[10px] mt-2">
+                          📈 {path.successStories[0].metric} — {path.successStories[0].brand}
+                        </p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
+                  {/* Bottom Section */}
                   <div className="mt-5 pt-4 border-t border-white/10">
                     <div className="flex items-center justify-between">
-                      {/* Stat badge - compact */}
                       <span className={`
-                        text-[9px] font-mono transition-all duration-300
+                        text-[10px] font-mono transition-all duration-300
                         ${isHovered ? "text-[#C5A059]" : "text-white/30"}
                       `}>
                         {path.stat}
                       </span>
 
-                      {/* CTA Button - compact, expands slightly on hover */}
                       <motion.button
                         onClick={() => {
                           if (path.title === "Lease a Space") goTo(2);
@@ -161,12 +212,12 @@ export default function Contact({ goTo }: { goTo: (index: number) => void }) {
                           if (path.title === "Book a Venue") goTo(6);
                         }}
                         animate={{
-                          paddingLeft: isHovered ? "1.25rem" : "1rem",
-                          paddingRight: isHovered ? "1.25rem" : "1rem",
+                          paddingLeft: isHovered ? "1rem" : "0.75rem",
+                          paddingRight: isHovered ? "1rem" : "0.75rem",
                         }}
                         className={`
                           text-[10px] tracking-widest uppercase 
-                          transition-all duration-500 flex items-center gap-1
+                          transition-all duration-300 flex items-center gap-1
                           ${isHovered 
                             ? "text-[#C5A059]" 
                             : "text-white/50 hover:text-white/80"
@@ -185,7 +236,7 @@ export default function Contact({ goTo }: { goTo: (index: number) => void }) {
                   </div>
                 </div>
 
-                {/* Hover gradient overlay */}
+                {/* Hover gradient */}
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: isHovered ? 1 : 0 }}
@@ -197,13 +248,12 @@ export default function Contact({ goTo }: { goTo: (index: number) => void }) {
           })}
         </div>
 
-        {/* Footer strip - Compact */}
+        {/* Footer */}
         <motion.div
           initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4 }}
-          className="mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4"
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.7 }}
+          className="mt-10 pt-6 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-3"
         >
           <p className="text-white/20 text-[10px] tracking-widest uppercase">
             © American Dream · East Rutherford, New Jersey
@@ -212,6 +262,102 @@ export default function Contact({ goTo }: { goTo: (index: number) => void }) {
             americandream.com · commercial@americandream.com
           </p>
         </motion.div>
+
+        {/* Wizard Modal */}
+        <AnimatePresence>
+          {showWizard && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[200] bg-black/95 backdrop-blur-md flex items-center justify-center p-4"
+              onClick={() => setShowWizard(false)}
+            >
+              <motion.div
+                initial={{ scale: 0.95, opacity: 0, y: 20 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                exit={{ scale: 0.95, opacity: 0, y: 20 }}
+                className="relative w-full max-w-md bg-[#111118] border border-white/10 rounded-2xl overflow-hidden"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="p-5 border-b border-white/10">
+                  <h3 className="text-xl font-light text-white">Find Your Perfect Space</h3>
+                  <p className="text-white/40 text-xs mt-1">Step {wizardStep} of 3</p>
+                </div>
+
+                <div className="p-5">
+                  {wizardStep === 1 && (
+                    <div className="space-y-3">
+                      <p className="text-white/60 text-sm mb-3">What brings you to American Dream?</p>
+                      {paths.map((path, idx) => (
+                        <button
+                          key={idx}
+                          onClick={() => {
+                            setWizardSelection({ ...wizardSelection, path: path.title });
+                            setWizardStep(2);
+                          }}
+                          className="w-full p-3 text-left border border-white/10 rounded-lg hover:border-[#C5A059] hover:bg-[#C5A059]/5 transition-all"
+                        >
+                          <p className="text-white font-medium">{path.title}</p>
+                          <p className="text-white/40 text-xs">{path.subtitle}</p>
+                        </button>
+                      ))}
+                    </div>
+                  )}
+
+                  {wizardStep === 2 && (
+                    <div className="space-y-3">
+                      <p className="text-white/60 text-sm mb-3">What space type interests you?</p>
+                      {["Flagship Store", "Mid-Tier Retail", "Pop-Up Space", "Sponsorship Package", "Event Venue"].map((type) => (
+                        <button
+                          key={type}
+                          onClick={() => {
+                            setWizardSelection({ ...wizardSelection, spaceType: type });
+                            setWizardStep(3);
+                          }}
+                          className="w-full p-3 text-left border border-white/10 rounded-lg hover:border-[#C5A059] hover:bg-[#C5A059]/5 transition-all"
+                        >
+                          <p className="text-white font-medium">{type}</p>
+                        </button>
+                      ))}
+                    </div>
+                  )}
+
+                  {wizardStep === 3 && (
+                    <div className="space-y-3">
+                      <p className="text-white/60 text-sm mb-3">When are you looking to start?</p>
+                      {["Immediately (0-3 months)", "Soon (3-6 months)", "Planning (6-12 months)", "Just exploring"].map((timeline) => (
+                        <button
+                          key={timeline}
+                          onClick={() => {
+                            alert(`✨ Thanks for your interest!\n\nPath: ${wizardSelection.path}\nSpace: ${wizardSelection.spaceType}\nTimeline: ${timeline}\n\nA leasing representative will contact you within 24 hours.`);
+                            setShowWizard(false);
+                            setWizardStep(1);
+                            setWizardSelection({ path: "", spaceType: "", timeline: "" });
+                          }}
+                          className="w-full p-3 text-left border border-white/10 rounded-lg hover:border-[#C5A059] hover:bg-[#C5A059]/5 transition-all"
+                        >
+                          <p className="text-white font-medium">{timeline}</p>
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                <div className="p-5 border-t border-white/10 flex justify-between">
+                  {wizardStep > 1 && (
+                    <button onClick={() => setWizardStep(wizardStep - 1)} className="text-white/40 text-sm hover:text-white transition">
+                      ← Back
+                    </button>
+                  )}
+                  <button onClick={() => setShowWizard(false)} className="ml-auto text-white/40 text-sm hover:text-white transition">
+                    Cancel
+                  </button>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </section>
   );
