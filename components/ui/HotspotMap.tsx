@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 interface Hotspot {
   id: string;
@@ -51,6 +51,23 @@ export default function HotspotMap({ onClose }: { onClose: () => void }) {
   const [selectedHotspot, setSelectedHotspot] = useState<Hotspot | null>(null);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const inquirySectionRef = useRef<HTMLDivElement>(null);
+
+  // Scroll to inquiry section when a hotspot is selected
+  useEffect(() => {
+    if (selectedHotspot && inquirySectionRef.current) {
+      setTimeout(() => {
+        inquirySectionRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }, 200); // Small delay to allow the details to render first
+    }
+  }, [selectedHotspot]);
+
+  const handleHotspotClick = (spot: Hotspot) => {
+    setSelectedHotspot(spot);
+  };
 
   return (
     <AnimatePresence>
@@ -77,7 +94,7 @@ export default function HotspotMap({ onClose }: { onClose: () => void }) {
                 Interactive <span className="gold-text">Floor Plan</span>
               </h3>
               <p className="text-white/40 text-[10px] md:text-xs tracking-wider mt-1">
-                Hover over dots • Click to explore available spaces
+                Click any hotspot • Scroll to inquiry section
               </p>
             </div>
             <button
@@ -124,7 +141,7 @@ export default function HotspotMap({ onClose }: { onClose: () => void }) {
                       whileTap={{ scale: 0.95 }}
                       onMouseEnter={() => setHoveredId(spot.id)}
                       onMouseLeave={() => setHoveredId(null)}
-                      onClick={() => setSelectedHotspot(spot)}
+                      onClick={() => handleHotspotClick(spot)}
                       className={`
                         relative flex items-center justify-center
                         w-5 h-5 md:w-6 md:h-6 rounded-full
@@ -149,7 +166,6 @@ export default function HotspotMap({ onClose }: { onClose: () => void }) {
                           <p className="text-white text-xs font-medium">{spot.name}</p>
                           <p className="text-[#C5A059] text-[9px]">{spot.type}</p>
                         </div>
-                        {/* Pointer arrow */}
                         <div className="absolute -left-1.5 top-3 w-2 h-2 rotate-45 bg-black/90 border-l border-t border-white/15" />
                       </motion.div>
                     )}
@@ -166,7 +182,7 @@ export default function HotspotMap({ onClose }: { onClose: () => void }) {
                 );
               })}
 
-              {/* Zone Labels - Made more visible */}
+              {/* Zone Labels */}
               <div className="absolute inset-0 pointer-events-none">
                 <div className="absolute top-[8%] left-[12%] text-white/25 text-[10px] font-bold tracking-wider uppercase bg-black/30 px-2 py-0.5 rounded">
                   NICKELODEON UNIVERSE
@@ -208,55 +224,71 @@ export default function HotspotMap({ onClose }: { onClose: () => void }) {
               </div>
             </div>
 
-            {/* Selected Hotspot Details */}
-            <AnimatePresence>
-              {selectedHotspot && (
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 20 }}
-                  className="mt-6 p-5 bg-gradient-to-r from-[#C5A059]/10 to-transparent border-l-4 border-[#C5A059] rounded-r-xl"
-                >
-                  <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                    <div>
-                      <div className="flex items-center gap-3 mb-2">
-                        <h4 className="text-xl font-light text-white">{selectedHotspot.name}</h4>
-                        <span className={`text-xs px-2 py-0.5 rounded-full ${
-                          selectedHotspot.status === "available" 
-                            ? "bg-green-500/20 text-green-400" 
-                            : selectedHotspot.status === "leased"
-                            ? "bg-white/10 text-white/40"
-                            : "bg-yellow-500/20 text-yellow-400"
-                        }`}>
-                          {statusLabels[selectedHotspot.status]}
-                        </span>
+            {/* Inquiry Section - Scrolls into view when hotspot is clicked */}
+            <div ref={inquirySectionRef} className="scroll-mt-4">
+              <AnimatePresence>
+                {selectedHotspot && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 20 }}
+                    className="mt-6 p-5 bg-gradient-to-r from-[#C5A059]/10 to-transparent border-l-4 border-[#C5A059] rounded-r-xl"
+                  >
+                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                      <div>
+                        <div className="flex items-center gap-3 mb-2">
+                          <h4 className="text-xl font-light text-white">{selectedHotspot.name}</h4>
+                          <span className={`text-xs px-2 py-0.5 rounded-full ${
+                            selectedHotspot.status === "available" 
+                              ? "bg-green-500/20 text-green-400" 
+                              : selectedHotspot.status === "leased"
+                              ? "bg-white/10 text-white/40"
+                              : "bg-yellow-500/20 text-yellow-400"
+                          }`}>
+                            {statusLabels[selectedHotspot.status]}
+                          </span>
+                        </div>
+                        <p className="text-white/60 text-sm max-w-md">{selectedHotspot.description}</p>
+                        {selectedHotspot.sqft && (
+                          <p className="text-white/40 text-xs mt-2">📐 Size: {selectedHotspot.sqft} sq ft</p>
+                        )}
                       </div>
-                      <p className="text-white/60 text-sm max-w-md">{selectedHotspot.description}</p>
-                      {selectedHotspot.sqft && (
-                        <p className="text-white/40 text-xs mt-2">📐 Size: {selectedHotspot.sqft} sq ft</p>
+                      {selectedHotspot.status === "available" && (
+                        <button
+                          onClick={() => {
+                            alert(`✨ Inquiry sent for ${selectedHotspot.name}\nA leasing representative will contact you within 24 hours.`);
+                            setSelectedHotspot(null);
+                          }}
+                          className="px-5 py-2 bg-[#C5A059] text-black text-xs tracking-wider uppercase rounded-full hover:bg-[#E8D5A3] transition-all whitespace-nowrap shadow-lg"
+                        >
+                          Inquire Now →
+                        </button>
                       )}
                     </div>
-                    {selectedHotspot.status === "available" && (
-                      <button
-                        onClick={() => {
-                          alert(`✨ Inquiry sent for ${selectedHotspot.name}\nA leasing representative will contact you within 24 hours.`);
-                          setSelectedHotspot(null);
-                        }}
-                        className="px-5 py-2 bg-[#C5A059] text-black text-xs tracking-wider uppercase rounded-full hover:bg-[#E8D5A3] transition-all whitespace-nowrap shadow-lg"
-                      >
-                        Inquire Now →
-                      </button>
-                    )}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            {/* Scroll hint when a hotspot is selected */}
+            {selectedHotspot && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="text-center mt-4"
+              >
+                <p className="text-white/20 text-[8px] tracking-wider flex items-center justify-center gap-1">
+                  <span>↓</span>
+                  Scroll to inquiry section below <span>↓</span>
+                </p>
+              </motion.div>
+            )}
           </div>
 
           {/* Footer */}
           <div className="flex-shrink-0 border-t border-white/5 p-3 bg-black/30">
             <p className="text-white/20 text-[8px] text-center">
-              Click any gold, blue, green, or purple dot • Available spaces marked with pulse animation
+              Click any gold, blue, green, or purple dot • Automatically scrolls to inquiry section
             </p>
           </div>
         </motion.div>
