@@ -4,9 +4,9 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import AnimatedStats from "@/components/ui/AnimatedStats";
 
 const eventStats = [
-  { value: 500000, suffix: "+", label: "Event Attendees Annually" },
+  { value: 5, suffix: "M+", label: "Event Attendees Annually" },
   { value: 150, suffix: "+", label: "Events Per Year" },
-  { value: 20000, suffix: "", label: "Max Single Event Capacity" },
+  { value: 20, suffix: "K+", label: "Max Single Event Capacity" },
   { value: 3, suffix: "", label: "Dedicated Event Venues" },
 ];
 
@@ -14,7 +14,7 @@ const pastEvents = [
   {
     name: "ArenaBowl 2024",
     type: "Major Sporting Event",
-    attendance: "15,000",
+    attendance: "15K+",
     desc: "Hosted the AFL championship game, drawing national media coverage and sold-out attendance.",
     videoUrl: "https://res.cloudinary.com/dpjtxigne/video/upload/v1777653138/arenabowl-clip_yq3cqq.mp4",
     posterUrl: "/images/ai-generated/arenabowl-poster.png",
@@ -22,7 +22,7 @@ const pastEvents = [
   {
     name: "Nike Air Max Day",
     type: "Brand Activation",
-    attendance: "8,000+",
+    attendance: "8K+",
     desc: "Three-day product launch activation across the entertainment plaza, with live performances and exclusive drops.",
     videoUrl: "https://res.cloudinary.com/dpjtxigne/video/upload/v1777653096/nike-activation_hnq9gn.mp4",
     posterUrl: "/images/ai-generated/nike-poster.png",
@@ -30,7 +30,7 @@ const pastEvents = [
   {
     name: "Holiday on Ice",
     type: "Live Entertainment",
-    attendance: "50,000+",
+    attendance: "50K+",
     desc: "Multi-week seasonal spectacular using the NHL ice rink as a performance stage.",
     videoUrl: "https://res.cloudinary.com/dpjtxigne/video/upload/v1777653078/holiday-on-ice_mcjmss.mp4",
     posterUrl: "/images/ai-generated/holiday-poster.png",
@@ -38,7 +38,7 @@ const pastEvents = [
   {
     name: "Global Food Festival",
     type: "Cultural Event",
-    attendance: "25,000",
+    attendance: "25K+",
     desc: "Weekend destination dining event featuring 30+ international chefs and live culinary demonstrations.",
     videoUrl: "https://res.cloudinary.com/dpjtxigne/video/upload/v1777653129/food-festival_j0ovvj.mp4",
     posterUrl: "/images/ai-generated/foodfest-poster.png",

@@ -40,7 +40,7 @@ function Counter({ target, prefix = "", suffix = "", delay = 0 }: { target: numb
 }
 
 const stats = [
-  { value: 3000000, suffix: "+", label: "Square Feet", sub: "3x the size of Mall of America", narrative: "This is massive.", proximityStat: false },
+  { value: 30, suffix: "M+", label: "Square Feet", sub: "3x the size of Mall of America", narrative: "This is massive.", proximityStat: false },
   { value: 450, suffix: "+", label: "Retail Tenants", sub: "From luxury flagships to pop-ups", narrative: "450+ brands under one roof.", proximityStat: false },
   { value: 40, suffix: "M+", label: "Annual Visitors", sub: "More than Disney World", narrative: "40 million people. Every year.", proximityStat: false },
   { value: 125, suffix: " min", label: "Avg Dwell Time", sub: "Industry avg is 68 min", narrative: "They stay. For 2+ hours.", proximityStat: false },
@@ -120,7 +120,7 @@ export default function Property() {
               <div className="space-y-2 pt-1">
                 <p className="text-white/40 text-sm tracking-wider">THE STORY SO FAR</p>
                 <div className="space-y-3">
-                  {["Not a mall. → A destination.", "3M square feet → 3x Mall of America", "40M visitors → More than Disney World", "125 min dwell time → Industry avg 68 min"].map(
+                  {["Not a mall. → A destination.", "30M square feet → 3x Mall of America", "40M visitors → More than Disney World", "125 min dwell time → Industry avg 68 min"].map(
                     (line, i) => (
                       <motion.p
                         key={i}

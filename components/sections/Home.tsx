@@ -169,7 +169,7 @@ export default function Home() {
           transition={{ delay: 1.8, duration: 1 }}
           className="flex flex-wrap items-center justify-center gap-6 md:gap-12 mt-10"
         >
-          <AnimatedStats value={3000000} suffix="+" label="SQ FT" subLabel="3x Mall of America" glow />
+          <AnimatedStats value={30} suffix="M+" label="SQ FT" subLabel="3x Mall of America" glow />
           <div className="w-px h-8 bg-white/20 hidden md:block" />
           <AnimatedStats value={40} suffix="M+" label="ANNUAL VISITORS" subLabel="More than Disney World" glow />
           <div className="w-px h-8 bg-white/20 hidden md:block" />
