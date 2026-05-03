@@ -100,7 +100,7 @@ american-dream-deck/
 ├── public/
 │   ├── videos/                 # Hero loop, attraction clips, event highlights
 │   └── images/
-│       ├── ai-generated/       # Midjourney/DALL-E atmospheric imagery
+│       ├── ai-generated/       # Meta AI/ChatGPT atmospheric imagery
 │       └── logos/              # Brand partner logos (Apple, Nike, etc.)
 │
 └── data/                       # Static content arrays (retail, dining, entertainment, events)
@@ -186,7 +186,7 @@ Prospects don't consume sales decks sequentially. A prospective luxury partner w
 **Video-First, AI-Rich**
 - Hero video establishes scale in the first 3 seconds
 - Entertainment and Events sections use video-on-hover for immersion
-- All imagery is AI-generated (Midjourney/DALL-E) for tonal consistency without stock photo fatigue
+- All imagery is AI-generated (Meta AI/ChatGPT) for tonal consistency without stock photo fatigue
 
 **Modular Component Architecture**
 Every section is an independent React component. Scaling is additive: new leasing paths, sponsorship tiers, or venue-specific modules can be added as routes without modifying existing sections.
@@ -202,7 +202,7 @@ Every section is an independent React component. Scaling is additive: new leasin
 
 **Built with:**
 - **Claude (Anthropic)** — Architecture decisions, component structure, iterative design critique, copy refinement, all interactive feature implementation
-- **Midjourney / DALL-E** — AI-generated atmosphere imagery for Entertainment, Dining, Luxury, and Events sections (prompts engineered for dark cinematic consistency)
+- **Meta AI/ChatGPT** — AI-generated atmosphere imagery for Entertainment, Dining, Luxury, and Events sections (prompts engineered for dark cinematic consistency)
 - **Cloudinary** — Video CDN delivery
 
 This was a focused sprint. Claude functioned as a senior technical reviewer at every decision point, compressing what would typically be a 3–4 week build into an intensive collaborative push.
